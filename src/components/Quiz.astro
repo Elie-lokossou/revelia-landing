@@ -1,0 +1,96 @@
+---
+import copy from '../content/copy.fr.json';
+import Icon from './Icon.astro';
+
+const { quiz } = copy;
+---
+
+<section class="section section--quiz" id="bilan">
+  <div class="quiz__bg" aria-hidden="true"></div>
+  <div class="container">
+    <div class="reveal section-header section-header--center">
+      <p class="section__label">{quiz.label}</p>
+      <h2 class="section__title section__title--wide">{quiz.title}</h2>
+      <p class="section__subtitle section__subtitle--center">{quiz.subtitle}</p>
+      <ul class="quiz__meta">
+        {
+          quiz.meta.map((item) => (
+            <li class="quiz__meta-item">
+              <Icon name={item.icon} size={16} class="quiz__meta-icon" />
+              {item.text}
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+
+    <div class="quiz" id="quiz-app" data-quiz-config={JSON.stringify(quiz)}>
+      <!-- Intro -->
+      <div class="quiz__panel quiz__panel--intro" data-quiz-panel="intro">
+        <button type="button" class="btn btn--red btn--pill quiz__start" data-quiz-start>
+          {quiz.ctaStart}
+        </button>
+      </div>
+
+      <!-- Questions -->
+      <div class="quiz__panel quiz__panel--questions" data-quiz-panel="questions" hidden>
+        <div class="quiz__progress">
+          <p class="quiz__progress-label" data-quiz-progress-label></p>
+          <div class="quiz__progress-bar">
+            <div class="quiz__progress-fill" data-quiz-progress-fill></div>
+          </div>
+        </div>
+        <h3 class="quiz__question" data-quiz-question></h3>
+        <div class="quiz__answers" data-quiz-answers></div>
+      </div>
+
+      <!-- Analyzing -->
+      <div class="quiz__panel quiz__panel--analyzing" data-quiz-panel="analyzing" hidden>
+        <div class="quiz__spinner" aria-hidden="true"></div>
+        <p class="quiz__analyzing-text">{quiz.analyzing}</p>
+      </div>
+
+      <!-- Results -->
+      <div class="quiz__panel quiz__panel--results" data-quiz-panel="results" hidden>
+        <h3 class="quiz__results-title">{quiz.resultsTitle}</h3>
+        <div class="quiz__profile" data-quiz-profile></div>
+
+        <h4 class="quiz__scores-title">{quiz.scoresTitle}</h4>
+        <div class="quiz__scores" data-quiz-scores></div>
+
+        <div class="quiz__recommend" data-quiz-recommend>
+          <h4 class="quiz__recommend-title">{quiz.recommendTitle}</h4>
+          <div class="quiz__recommend-content" data-quiz-recommend-content></div>
+        </div>
+
+        <div class="quiz__email-capture" data-quiz-email>
+          <p class="quiz__email-title">{quiz.emailCapture.title}</p>
+          <form class="quiz__email-form" data-quiz-email-form>
+            <input
+              type="email"
+              placeholder={quiz.emailCapture.placeholder}
+              class="quiz__email-input"
+              data-quiz-email-input
+            />
+            <button type="submit" class="btn btn--red btn--pill">{quiz.emailCapture.submit}</button>
+          </form>
+          <button type="button" class="quiz__email-skip" data-quiz-email-skip>
+            {quiz.emailCapture.skip}
+          </button>
+        </div>
+
+        <a href={quiz.ctaNextHref} class="btn btn--red btn--pill btn--full quiz__cta-final">
+          {quiz.ctaNext}
+        </a>
+        <a href={quiz.ctaContactHref} class="hero__link-secondary quiz__cta-contact">
+          {quiz.ctaContact}
+          <Icon name="arrow" size={16} class="hero__link-arrow" />
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  import '../scripts/quiz.ts';
+</script>

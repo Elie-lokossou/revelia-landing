@@ -1,0 +1,52 @@
+---
+import copy from '../content/copy.fr.json';
+
+const { situations } = copy;
+---
+
+<section class="section section--situations" id="reconnaissance">
+  <div class="situations__bg" aria-hidden="true"></div>
+  <div class="container">
+    <div class="reveal section-header section-header--center">
+      <p class="section__label">{situations.label}</p>
+      <h2 class="section__title section__title--wide">{situations.title}</h2>
+      <p class="section__subtitle section__subtitle--center">{situations.subtitle}</p>
+    </div>
+
+    <div class="situations-grid reveal-stagger">
+      {
+        situations.items.map((item) => (
+          <article class="flip-card" tabindex="0" role="button" aria-label={`${item.front} — cliquer pour voir comment Revelia peut aider`}>
+            <div class="flip-card__inner">
+              <div class="flip-card__front">
+                <img src={item.image} alt="" class="flip-card__image" width="400" height="280" loading="lazy" aria-hidden="true" />
+                <div class="flip-card__front-content">
+                  <h3 class="flip-card__title">{item.front}</h3>
+                  <p class="flip-card__detail">{item.frontDetail}</p>
+                  <span class="flip-card__hint">Cliquer pour retourner</span>
+                </div>
+              </div>
+              <div class="flip-card__back">
+                <p class="flip-card__back-label">Voici comment Revelia peut t'aider</p>
+                <p class="flip-card__back-text">{item.back}</p>
+                <a href={situations.ctaHref} class="btn btn--red btn--pill flip-card__cta">{situations.cta}</a>
+              </div>
+            </div>
+          </article>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<script>
+  document.querySelectorAll('.flip-card').forEach((card) => {
+    card.addEventListener('click', () => card.classList.toggle('is-flipped'));
+    card.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        card.classList.toggle('is-flipped');
+      }
+    });
+  });
+</script>

@@ -1,0 +1,473 @@
+{
+  "meta": {
+    "title": "Revelia — Coach en développement personnel",
+    "description": "Retrouve confiance en toi, quel que soit ton corps. Accompagnement bienveillant pour les personnes qui veulent s'assumer pleinement."
+  },
+  "header": {
+    "logo": "Revelia",
+    "nav": [
+      { "label": "Accueil", "href": "#accueil" },
+      { "label": "Bilan", "href": "#bilan" },
+      { "label": "Méthode", "href": "#methode" },
+      { "label": "Témoignages", "href": "#temoignages" },
+      { "label": "Offres", "href": "#offres" },
+      { "label": "FAQ", "href": "#faq" }
+    ],
+    "cta": "Prendre RDV"
+  },
+  "hero": {
+    "label": "Camille Renard — Coach bien-être & confiance",
+    "brandName": "Revelia",
+    "coachName": "Camille Renard",
+    "title": "Tu mérites de te sentir bien dans ton corps.",
+    "subtitle": "Retrouve confiance et sérénité dans ton corps — sans régime, sans culpabilité. Un accompagnement humain pour te sentir bien, maintenant.",
+    "ctaPrimary": "Faire mon bilan gratuit",
+    "ctaPrimaryHref": "#bilan",
+    "ctaSecondary": "Réserver un appel découverte",
+    "ctaSecondaryHref": "#contact",
+    "socialProof": [
+      { "value": "+150", "label": "femmes accompagnées" },
+      { "value": "4.9/5", "label": "satisfaction" },
+      { "value": "8 sem.", "label": "transformation durable" }
+    ],
+    "floatingCards": [
+      { "value": "+150 femmes", "text": "accompagnées avec bienveillance" },
+      { "value": "4.9/5", "text": "note moyenne clientes" },
+      { "value": "Durable", "text": "transformation sans yo-yo" }
+    ],
+    "imageAlt": "Camille Renard, coach en développement personnel, souriante dans un bureau lumineux"
+  },
+  "quiz": {
+    "label": "Bilan Confiance & Bien-être",
+    "title": "Où en es-tu vraiment avec ton corps ?",
+    "subtitle": "5 questions pour comprendre ton profil et recevoir des recommandations personnalisées.",
+    "meta": [
+      { "icon": "clock", "text": "2 min" },
+      { "icon": "gift", "text": "Gratuit" },
+      { "icon": "shield", "text": "Sans engagement" },
+      { "icon": "zap", "text": "Résultat immédiat" }
+    ],
+    "progressLabel": "Question {current} sur {total}",
+    "ctaStart": "Commencer mon bilan",
+    "analyzing": "Analyse de ton profil en cours…",
+    "resultsTitle": "Ton profil révélé",
+    "scoresTitle": "Tes scores bien-être",
+    "scores": [
+      { "id": "confiance", "label": "Confiance", "key": "confiance" },
+      { "id": "corps", "label": "Corps", "key": "corps" },
+      { "id": "mental", "label": "Mental", "key": "mental" },
+      { "id": "energie", "label": "Énergie", "key": "energie" }
+    ],
+    "recommendTitle": "Mon accompagnement pour toi",
+    "emailCapture": {
+      "title": "Recevoir ton bilan complet par email ?",
+      "placeholder": "Ton email",
+      "submit": "Recevoir mon bilan",
+      "skip": "Continuer sans email"
+    },
+    "recommendCta": "Découvrir la méthode Revelia",
+    "recommendCtaHref": "#methode",
+    "ctaNext": "Découvrir la méthode Revelia",
+    "ctaNextHref": "#methode",
+    "ctaContact": "Réserver un appel gratuit",
+    "ctaContactHref": "#contact",
+    "profiles": {
+      "exploratrice": {
+        "name": "L'Exploratrice",
+        "description": "Tu es curieuse et prête à découvrir de nouvelles façons de te sentir bien. Tu as besoin d'un cadre doux pour explorer sans pression.",
+        "offer": "Standard",
+        "offerReason": "Idéal pour une première prise de conscience en douceur."
+      },
+      "battante": {
+        "name": "La Battante",
+        "description": "Tu as déjà essayé beaucoup de choses. Tu es déterminée mais épuisée par les cycles yo-yo. Il te faut un accompagnement structuré.",
+        "offer": "Premium",
+        "offerReason": "Le suivi régulier dont tu as besoin pour tenir dans la durée."
+      },
+      "bienveillante": {
+        "name": "La Bienveillante",
+        "description": "Tu prends soin des autres avant toi. Tu mérites enfin de te tourner vers toi avec la même douceur que tu offres aux autres.",
+        "offer": "Premium",
+        "offerReason": "Un espace rien que pour toi, avec un suivi bienveillant."
+      },
+      "revelee": {
+        "name": "La Révélée",
+        "description": "Tu es prête à un changement profond. Tu veux révéler la femme confiante que tu portes déjà en toi.",
+        "offer": "VIP",
+        "offerReason": "Un accompagnement intensif pour une transformation complète."
+      }
+    },
+    "questions": [
+      {
+        "id": "q1",
+        "question": "Comment te sens-tu quand tu te regardes dans le miroir ?",
+        "answers": [
+          { "id": "a", "text": "Je détourne le regard", "icon": "mirror", "profile": "battante", "scores": { "confiance": 1, "corps": 1, "mental": 2, "energie": 2 } },
+          { "id": "b", "text": "Ça dépend des jours", "icon": "cloud", "profile": "exploratrice", "scores": { "confiance": 2, "corps": 2, "mental": 2, "energie": 2 } },
+          { "id": "c", "text": "Je suis neutre, pas de jugement", "icon": "scales", "profile": "bienveillante", "scores": { "confiance": 3, "corps": 3, "mental": 3, "energie": 3 } },
+          { "id": "d", "text": "Je m'apprécie de plus en plus", "icon": "star", "profile": "revelee", "scores": { "confiance": 4, "corps": 4, "mental": 4, "energie": 4 } }
+        ]
+      },
+      {
+        "id": "q2",
+        "question": "Quelle est ta relation avec la nourriture ?",
+        "answers": [
+          { "id": "a", "text": "Culpabilité et restrictions", "icon": "ban", "profile": "battante", "scores": { "confiance": 1, "corps": 1, "mental": 1, "energie": 2 } },
+          { "id": "b", "text": "Je ne sais plus quoi manger", "icon": "help-circle", "profile": "exploratrice", "scores": { "confiance": 2, "corps": 2, "mental": 2, "energie": 2 } },
+          { "id": "c", "text": "J'essaie d'être attentive sans me punir", "icon": "heart", "profile": "bienveillante", "scores": { "confiance": 3, "corps": 3, "mental": 3, "energie": 3 } },
+          { "id": "d", "text": "Je mange en écoutant mon corps", "icon": "leaf", "profile": "revelee", "scores": { "confiance": 4, "corps": 4, "mental": 4, "energie": 4 } }
+        ]
+      },
+      {
+        "id": "q3",
+        "question": "Comment réagis-tu face aux compliments ?",
+        "answers": [
+          { "id": "a", "text": "Je les repousse ou ne les crois pas", "icon": "shield", "profile": "battante", "scores": { "confiance": 1, "corps": 2, "mental": 1, "energie": 2 } },
+          { "id": "b", "text": "Je suis gênée mais touchée", "icon": "smile", "profile": "exploratrice", "scores": { "confiance": 2, "corps": 2, "mental": 2, "energie": 3 } },
+          { "id": "c", "text": "Je les accueille avec gratitude", "icon": "hug", "profile": "bienveillante", "scores": { "confiance": 3, "corps": 3, "mental": 3, "energie": 3 } },
+          { "id": "d", "text": "Je les assume pleinement", "icon": "crown", "profile": "revelee", "scores": { "confiance": 4, "corps": 4, "mental": 4, "energie": 4 } }
+        ]
+      },
+      {
+        "id": "q4",
+        "question": "Quel est ton plus grand défi aujourd'hui ?",
+        "answers": [
+          { "id": "a", "text": "Sortir du cycle régime-échec", "icon": "refresh", "profile": "battante", "scores": { "confiance": 1, "corps": 1, "mental": 2, "energie": 1 } },
+          { "id": "b", "text": "Comprendre d'où vient mon malaise", "icon": "search", "profile": "exploratrice", "scores": { "confiance": 2, "corps": 2, "mental": 2, "energie": 2 } },
+          { "id": "c", "text": "Prendre du temps pour moi", "icon": "clock", "profile": "bienveillante", "scores": { "confiance": 2, "corps": 3, "mental": 3, "energie": 2 } },
+          { "id": "d", "text": "Passer à l'action concrètement", "icon": "rocket", "profile": "revelee", "scores": { "confiance": 4, "corps": 3, "mental": 4, "energie": 4 } }
+        ]
+      },
+      {
+        "id": "q5",
+        "question": "Si tu pouvais changer une chose demain, ce serait…",
+        "answers": [
+          { "id": "a", "text": "Ne plus avoir honte de mon corps", "icon": "unlock", "profile": "battante", "scores": { "confiance": 1, "corps": 1, "mental": 2, "energie": 2 } },
+          { "id": "b", "text": "Comprendre ce qui me bloque vraiment", "icon": "key", "profile": "exploratrice", "scores": { "confiance": 2, "corps": 2, "mental": 2, "energie": 2 } },
+          { "id": "c", "text": "M'accorder la même bienveillance qu'aux autres", "icon": "gift", "profile": "bienveillante", "scores": { "confiance": 3, "corps": 3, "mental": 3, "energie": 3 } },
+          { "id": "d", "text": "Rayonner avec confiance au quotidien", "icon": "sun", "profile": "revelee", "scores": { "confiance": 4, "corps": 4, "mental": 4, "energie": 4 } }
+        ]
+      }
+    ]
+  },
+  "situations": {
+    "label": "Reconnaissance",
+    "title": "Dans quelle situation te reconnais-tu ?",
+    "subtitle": "Tu t'es reconnue dans ton bilan ? Clique sur une carte — on avance ensemble, à ton rythme.",
+    "cta": "Découvrir la méthode",
+    "ctaHref": "#methode",
+    "items": [
+      {
+        "id": "miroir",
+        "front": "Je fuis mon reflet",
+        "frontDetail": "Le miroir est devenu un ennemi. Chaque matin, c'est la même angoisse.",
+        "back": "On travaille ensemble à transformer ta relation au miroir — pas pour te « réparer », mais pour te voir avec bienveillance.",
+        "image": "/images/method-confiance.jpg",
+        "imageAlt": "Femme souriante et confiante"
+      },
+      {
+        "id": "social",
+        "front": "Je me cache socialement",
+        "frontDetail": "Les photos, les sorties, les événements… tu préfères rester invisible.",
+        "back": "Des outils concrets pour oser te montrer, à ton rythme, sans performance ni pression.",
+        "image": "/images/method-esprit.jpg",
+        "imageAlt": "Femme méditant sereinement"
+      },
+      {
+        "id": "regime",
+        "front": "Je suis fatiguée des régimes",
+        "frontDetail": "Tu as tout essayé. Rien ne tient. Et tu te sens coupable à chaque rechute.",
+        "back": "On sort du cycle yo-yo ensemble. Pas de régime, pas de punition — une relation apaisée avec ton corps.",
+        "image": "/images/method-corps.jpg",
+        "imageAlt": "Femme pratiquant le yoga"
+      }
+    ]
+  },
+  "method": {
+    "label": "Ma méthode",
+    "title": "Corps, esprit, confiance — les trois piliers de ta transformation",
+    "subtitle": "Une approche holistique qui respecte ton rythme et ton histoire.",
+    "pillars": [
+      {
+        "id": "corps",
+        "number": "01",
+        "title": "Renouer avec ton corps",
+        "description": "Sans régime, sans punition. On apprend à écouter les signaux de ton corps, à sortir du cycle culpabilité-restriction, et à te sentir à l'aise dans ta peau — aujourd'hui, pas demain.",
+        "image": "/images/method-corps.jpg",
+        "imageAlt": "Femme pratiquant le yoga en pleine nature, sereine"
+      },
+      {
+        "id": "esprit",
+        "number": "02",
+        "title": "Apaiser le discours intérieur",
+        "description": "Ce dialogue critique qui te dit que tu n'es pas assez bien ? On le transforme ensemble. Des outils concrets pour remplacer l'autocritique par une voix bienveillante et réaliste.",
+        "image": "/images/method-esprit.jpg",
+        "imageAlt": "Femme méditant dans un cadre paisible"
+      },
+      {
+        "id": "confiance",
+        "number": "03",
+        "title": "Révéler ta lumière intérieure",
+        "description": "La confiance ne vient pas d'un chiffre sur la balance. Elle se construit quand tu oseras te montrer, t'affirmer, et croire que tu mérites d'être vue — exactement comme tu es.",
+        "image": "/images/method-confiance.jpg",
+        "imageAlt": "Femme souriante et confiante, regard direct"
+      }
+    ],
+    "cta": "Voir le parcours en 8 semaines",
+    "ctaHref": "#transformation"
+  },
+  "timeline": {
+    "label": "Transformation",
+    "title": "Ton parcours en 8 semaines",
+    "subtitle": "Une progression douce et structurée — pas de miracle, une vraie évolution.",
+    "weeks": [
+      { "week": "Sem. 1–2", "title": "Accueil & diagnostic", "description": "On fait connaissance. Tu poses les bases sans pression. Premier bilan de ta relation au corps." },
+      { "week": "Sem. 3–4", "title": "Apaiser le mental", "description": "On identifie ton dialogue intérieur. Des exercices quotidiens pour calmer l'autocritique." },
+      { "week": "Sem. 5–6", "title": "Renouer avec le corps", "description": "Mouvement doux, alimentation intuitive, rituels bienveillants. Tu réapprends à t'écouter." },
+      { "week": "Sem. 7–8", "title": "Rayonner & ancrer", "description": "Tu oseras te montrer. On consolide tes acquis pour une confiance durable." }
+    ]
+  },
+  "about": {
+    "label": "À propos",
+    "title": "Camille Renard",
+    "role": "Coach certifiée en développement personnel",
+    "bio": "Après 10 ans dans le marketing — et des années à me battre contre mon propre corps — j'ai choisi d'accompagner celles qui, comme moi, en avaient assez de se sentir invisible. Ma promesse : t'aider à révéler la force que tu portes déjà en toi, à ton rythme.",
+    "stats": [
+      { "value": "10", "suffix": " ans", "label": "d'expérience" },
+      { "value": "150", "suffix": "+", "label": "femmes accompagnées" },
+      { "value": "ICF", "suffix": "", "label": "Coach certifiée" }
+    ],
+    "milestones": [
+      { "year": "2014", "title": "Premiers pas", "description": "Découverte du coaching et de la body positivity." },
+      { "year": "2018", "title": "Certification ICF", "description": "Formation professionnelle et spécialisation estime de soi." },
+      { "year": "2022", "title": "Revelia naît", "description": "Lancement de ma pratique dédiée à la confiance corporelle." },
+      { "year": "2025", "title": "150+ femmes", "description": "Une communauté grandissante de transformations durables." }
+    ],
+    "cta": "Découvrir les accompagnements",
+    "ctaHref": "#offres",
+    "imageAlt": "Camille Renard, coach en développement personnel"
+  },
+  "offers": {
+    "label": "Mes accompagnements",
+    "title": "Choisis le rythme qui te correspond",
+    "subtitle": "Chaque parcours est personnalisé. Pas de formule miracle — un accompagnement humain, à ton rythme.",
+    "footerLink": "Une question ? Parlons-en",
+    "footerLinkHref": "#contact",
+    "comparison": {
+      "headers": ["", "Standard", "Premium", "VIP"],
+      "rows": [
+        { "label": "Séances individuelles", "standard": "4", "premium": "12", "vip": "Illimité" },
+        { "label": "Suivi WhatsApp", "standard": false, "premium": true, "vip": true },
+        { "label": "Support entre séances", "standard": false, "premium": true, "vip": true },
+        { "label": "Exercices guidés", "standard": true, "premium": true, "vip": true },
+        { "label": "Priorité réponse", "standard": false, "premium": false, "vip": true }
+      ]
+    },
+    "items": [
+      {
+        "id": "standard",
+        "name": "Standard",
+        "tagline": "Première prise de conscience",
+        "price": "297",
+        "currency": "€",
+        "featured": false,
+        "features": [
+          "4 séances individuelles (1h)",
+          "Workbook PDF « Mon parcours confiance »",
+          "Accès à la communauté privée",
+          "Exercices quotidiens guidés"
+        ],
+        "cta": "Choisir Standard"
+      },
+      {
+        "id": "premium",
+        "name": "Premium",
+        "tagline": "Transformation accompagnée",
+        "price": "897",
+        "currency": "€",
+        "featured": true,
+        "badge": "Le plus choisi",
+        "features": [
+          "12 séances individuelles (1h)",
+          "Suivi WhatsApp entre les séances",
+          "2 ateliers groupe par mois",
+          "Workbook + journal de bord",
+          "Accès communauté + lives mensuels"
+        ],
+        "cta": "Choisir Premium"
+      },
+      {
+        "id": "vip",
+        "name": "VIP",
+        "tagline": "Accompagnement intensif",
+        "price": "2 497",
+        "currency": "€",
+        "featured": false,
+        "features": [
+          "6 mois d'accompagnement illimité",
+          "Appel hebdomadaire garanti",
+          "Accès prioritaire 7j/7",
+          "Plan personnalisé corps-esprit-confiance",
+          "Session photo confiance incluse"
+        ],
+        "cta": "Choisir VIP"
+      }
+    ]
+  },
+  "testimonials": {
+    "label": "Témoignages",
+    "title": "Des parcours réels, des transformations sincères",
+    "cta": "Choisir mon accompagnement",
+    "ctaHref": "#offres",
+    "items": [
+      {
+        "quote": "J'ai arrêté de me cacher derrière des vêtements larges. Ce n'est pas mon poids qui a changé en premier — c'est ma relation à moi-même.",
+        "name": "Sophie",
+        "result": "-8 kg de culpabilité",
+        "detail": "Premium · 34 ans · Lyon",
+        "photo": "/images/avatar-1.jpg"
+      },
+      {
+        "quote": "Camille ne m'a jamais fait sentir que mon corps était un problème à résoudre. Pour la première fois, quelqu'un m'a écoutée sans me juger.",
+        "name": "Amina",
+        "result": "+100% confiance",
+        "detail": "Standard · 28 ans · Paris",
+        "photo": "/images/avatar-2.jpg"
+      },
+      {
+        "quote": "Le VIP m'a permis de traverser une période difficile sans rechuter dans les régimes yo-yo. Aujourd'hui, je me regarde dans le miroir sans détourner les yeux.",
+        "name": "Claire",
+        "result": "8 sem. de transformation",
+        "detail": "VIP · 41 ans · Bordeaux",
+        "photo": "/images/avatar-4.jpg"
+      },
+      {
+        "quote": "Le bilan m'a ouvert les yeux. Je savais que quelque chose clochait, mais je ne savais pas par où commencer. Camille m'a guidée avec une douceur incroyable.",
+        "name": "Léa",
+        "result": "Retour à soi",
+        "detail": "Premium · 31 ans · Nantes",
+        "photo": "/images/avatar-3.jpg"
+      }
+    ]
+  },
+  "leadMagnet": {
+    "label": "Ressource offerte",
+    "title": "Le guide de la confiance corporelle",
+    "description": "7 jours d'exercices doux pour renouer avec ton corps — sans régime, sans culpabilité. Un PDF gratuit pour amorcer ton parcours dès aujourd'hui.",
+    "checklist": [
+      "Comprendre ton dialogue intérieur",
+      "3 rituels quotidiens de bienveillance",
+      "Un journal de gratitude corporelle",
+      "Des pistes pour oser te montrer"
+    ],
+    "cta": "Télécharger gratuitement",
+    "imageAlt": "Femme travaillant sereinement sur son ordinateur portable"
+  },
+  "faq": {
+    "label": "Questions fréquentes",
+    "title": "Tu te poses peut-être ces questions",
+    "searchPlaceholder": "Rechercher une question…",
+    "noResults": "Aucune question ne correspond à ta recherche.",
+    "items": [
+      {
+        "question": "Est-ce que tu m'aides à perdre du poids ?",
+        "answer": "Mon accompagnement ne vise pas la perte de poids comme objectif principal. On travaille la confiance, l'estime de soi et la relation à ton corps. Si ton poids évolue naturellement, c'est un effet possible — mais ce n'est jamais la promesse centrale."
+      },
+      {
+        "question": "Les séances se font en présentiel ou en ligne ?",
+        "answer": "Les deux sont possibles. La majorité de mes clientes choisissent le visio, ce qui permet un suivi flexible. Les séances présentielles sont disponibles sur Paris et en Île-de-France."
+      },
+      {
+        "question": "Je n'ai jamais fait de coaching. Par où commencer ?",
+        "answer": "Commence par le bilan gratuit en haut de page, ou réserve un appel découverte de 20 minutes. L'offre Standard est idéale pour une première expérience."
+      },
+      {
+        "question": "Et si je ne suis pas à l'aise avec mon corps pendant les séances ?",
+        "answer": "C'est normal, et c'est justement pour ça que je suis là. On avance à ton rythme. Tu n'as jamais à te montrer d'une façon qui te met mal à l'aise — caméra off, c'est OK."
+      },
+      {
+        "question": "Puis-je payer en plusieurs fois ?",
+        "answer": "Oui, pour les offres Premium et VIP, un paiement en 3 ou 6 fois sans frais est possible. Contacte-moi pour en discuter."
+      },
+      {
+        "question": "Le bilan en ligne est-il vraiment personnalisé ?",
+        "answer": "Oui. Tes réponses permettent de déterminer ton profil et de te proposer l'accompagnement le plus adapté. Ce n'est pas un algorithme générique — c'est basé sur ma méthode et mon expérience."
+      }
+    ]
+  },
+  "contact": {
+    "label": "Passer à l'action",
+    "title": "Prêt·e à retrouver confiance en toi ?",
+    "subtitle": "Réserve un appel découverte gratuit de 20 minutes. Sans engagement, sans pression.",
+    "benefits": [
+      { "title": "Gratuit", "text": "Appel découverte de 20 minutes, sans engagement." },
+      { "title": "Sans engagement", "text": "Tu avances à ton rythme, sans pression commerciale." },
+      { "title": "Réponse sous 24h", "text": "Je te réponds rapidement, avec bienveillance." }
+    ],
+    "steps": [
+      { "title": "Ton objectif", "subtitle": "Dis-m'en un peu plus sur toi" },
+      { "title": "Tes coordonnées", "subtitle": "Pour que je puisse te recontacter" },
+      { "title": "Ton message", "subtitle": "Partage ce que tu ressens (optionnel)" }
+    ],
+    "objectives": [
+      { "id": "confiance", "label": "Retrouver confiance en moi" },
+      { "id": "corps", "label": "Apaiser ma relation au corps" },
+      { "id": "regime", "label": "Sortir du cycle régime" },
+      { "id": "estime", "label": "Travailler mon estime de soi" },
+      { "id": "autre", "label": "Autre chose" }
+    ],
+    "form": {
+      "name": "Prénom",
+      "email": "Email",
+      "message": "Ton message (optionnel)",
+      "submit": "Réserver mon appel gratuit",
+      "next": "Continuer",
+      "back": "Retour",
+      "footnote": "Réponse garantie sous 24h",
+      "success": "Merci ! Je te réponds très vite.",
+      "error": "Une erreur est survenue. Réessaie ou écris-moi directement.",
+      "demoNotice": "Mode démo — le message n'a pas été envoyé. Ajoutez PUBLIC_WEB3FORMS_KEY dans votre fichier .env pour activer l'envoi réel.",
+      "demoSuccess": "Formulaire validé en mode démo. Configurez PUBLIC_WEB3FORMS_KEY pour recevoir les messages."
+    }
+  },
+  "footer": {
+    "tagline": "Révèle la force que tu portes déjà en toi.",
+    "description": "Accompagnement bienveillant en confiance corporelle et estime de soi. Sans culpabilité, sans régime drastique.",
+    "copyright": "© 2026 Revelia. Tous droits réservés.",
+    "quickLinks": {
+      "title": "Navigation",
+      "items": [
+        { "label": "Accueil", "href": "#accueil" },
+        { "label": "Bilan", "href": "#bilan" },
+        { "label": "Méthode", "href": "#methode" },
+        { "label": "Témoignages", "href": "#temoignages" },
+        { "label": "Offres", "href": "#offres" },
+        { "label": "FAQ", "href": "#faq" }
+      ]
+    },
+    "services": {
+      "title": "Accompagnements",
+      "items": [
+        { "label": "Standard — 297€", "href": "#offres" },
+        { "label": "Premium — 897€", "href": "#offres" },
+        { "label": "VIP — 2 497€", "href": "#offres" },
+        { "label": "Guide gratuit", "href": "#ressources" }
+      ]
+    },
+    "newsletter": {
+      "title": "Reste inspirée",
+      "text": "Reçois des conseils bienveillants sur la confiance en soi.",
+      "placeholder": "Ton email",
+      "submit": "S'inscrire"
+    },
+    "social": [
+      { "label": "Instagram", "href": "#" },
+      { "label": "LinkedIn", "href": "#" },
+      { "label": "Facebook", "href": "#" }
+    ],
+    "links": [
+      { "label": "Mentions légales", "href": "/mentions-legales" },
+      { "label": "Politique de confidentialité", "href": "/politique-confidentialite" }
+    ]
+  }
+}

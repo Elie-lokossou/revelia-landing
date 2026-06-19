@@ -1,0 +1,65 @@
+---
+import copy from '../content/copy.fr.json';
+import Icon from './Icon.astro';
+
+const { hero } = copy;
+---
+
+<section class="hero section--hero" id="accueil">
+  <div class="hero__bg" aria-hidden="true"></div>
+  <div class="container hero__grid">
+    <div class="hero__content">
+      <p class="section__label hero__item hero__item--1">{hero.label}</p>
+      <h1 class="hero__title hero__item hero__item--2">{hero.title}</h1>
+      <p class="hero__subtitle hero__item hero__item--3">{hero.subtitle}</p>
+      <div class="hero__actions hero__item hero__item--4">
+        <a href={hero.ctaPrimaryHref} class="btn btn--red btn--pill">{hero.ctaPrimary}</a>
+        <a href={hero.ctaSecondaryHref} class="hero__link-secondary">
+          {hero.ctaSecondary}
+          <Icon name="arrow" size={16} class="hero__link-arrow" />
+        </a>
+      </div>
+      <div class="hero__proof hero__item hero__item--5">
+        {
+          hero.socialProof.map((item) => (
+            <div class="hero__proof-item">
+              <span
+                class="hero__proof-value"
+                {...(item.value.startsWith('+') ? { 'data-countup': item.value.replace(/\D/g, '') } : {})}
+              >
+                {item.value}
+              </span>
+              <span class="hero__proof-label">{item.label}</span>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+
+    <div class="hero__visual">
+      <div class="hero__photo-wrap" data-parallax>
+        <img
+          src="/images/coach.jpg"
+          alt={hero.imageAlt}
+          class="hero__image"
+          width="640"
+          height="800"
+          loading="eager"
+        />
+        <div class="hero__photo-overlay" aria-hidden="true"></div>
+        <span class="hero__brand-watermark" aria-hidden="true">{hero.brandName}</span>
+      </div>
+
+      <div class="hero__floating-cards" aria-hidden="true">
+        {
+          hero.floatingCards.map((card, i) => (
+            <div class:list={['floating-card', `floating-card--${i + 1}`]}>
+              <p class="floating-card__value">{card.value}</p>
+              <p class="floating-card__text">{card.text}</p>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </div>
+</section>

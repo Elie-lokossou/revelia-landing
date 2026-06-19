@@ -1,0 +1,43 @@
+---
+import copy from '../content/copy.fr.json';
+
+const { method } = copy;
+---
+
+<section class="section section--gradient-reverse section--method" id="methode">
+  <div class="container">
+    <div class="reveal section-header section-header--center">
+      <p class="section__label">{method.label}</p>
+      <h2 class="section__title section__title--wide">{method.title}</h2>
+      <p class="section__subtitle section__subtitle--center">{method.subtitle}</p>
+    </div>
+
+    <div class="pillars-grid reveal-stagger">
+      {
+        method.pillars.map((pillar, index) => (
+          <article class:list={['pillar-card', { 'pillar-card--featured': index === 0 }]}>
+            <div class="pillar-card__visual">
+              <img
+                src={pillar.image}
+                alt={pillar.imageAlt}
+                class="pillar-card__image"
+                width="400"
+                height="280"
+                loading="lazy"
+              />
+            </div>
+            <div class="pillar-card__body">
+              <p class="pillar-card__number">{pillar.number}</p>
+              <h3 class="pillar-card__title">{pillar.title}</h3>
+              <p class="pillar-card__text">{pillar.description}</p>
+            </div>
+          </article>
+        ))
+      }
+    </div>
+
+    <p class="method-cta reveal">
+      <a href={method.ctaHref} class="btn btn--red btn--pill">{method.cta}</a>
+    </p>
+  </div>
+</section>

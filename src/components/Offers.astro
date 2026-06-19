@@ -1,0 +1,58 @@
+---
+import copy from '../content/copy.fr.json';
+import OfferCard from './OfferCard.astro';
+import Icon from './Icon.astro';
+
+const { offers } = copy;
+---
+
+<section class="section section--offers" id="offres">
+  <div class="offers__bg" aria-hidden="true"></div>
+  <div class="container">
+    <div class="reveal section-header section-header--center">
+      <p class="section__label">{offers.label}</p>
+      <h2 class="section__title">{offers.title}</h2>
+      <p class="section__subtitle section__subtitle--center">{offers.subtitle}</p>
+    </div>
+    <div class="offers-grid reveal-stagger">
+      {
+        offers.items.map((offer) => (
+          <OfferCard offer={offer} />
+        ))
+      }
+    </div>
+
+    <div class="offers-comparison reveal">
+      <table class="comparison-table">
+        <thead>
+          <tr>
+            {
+              offers.comparison.headers.map((h) => (
+                <th>{h}</th>
+              ))
+            }
+          </tr>
+        </thead>
+        <tbody>
+          {
+            offers.comparison.rows.map((row) => (
+              <tr>
+                <td class="comparison-table__label">{row.label}</td>
+                <td>{typeof row.standard === 'boolean' ? (row.standard ? <Icon name="check" size={18} class="comparison-table__check" /> : '—') : row.standard}</td>
+                <td class="comparison-table__premium">{typeof row.premium === 'boolean' ? (row.premium ? <Icon name="check" size={18} class="comparison-table__check" /> : '—') : row.premium}</td>
+                <td>{typeof row.vip === 'boolean' ? (row.vip ? <Icon name="check" size={18} class="comparison-table__check" /> : '—') : row.vip}</td>
+              </tr>
+            ))
+          }
+        </tbody>
+      </table>
+    </div>
+
+    <p class="offers-footer reveal">
+      <a href={offers.footerLinkHref} class="hero__link-secondary">
+        {offers.footerLink}
+        <Icon name="arrow" size={16} class="hero__link-arrow" />
+      </a>
+    </p>
+  </div>
+</section>

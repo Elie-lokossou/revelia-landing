@@ -1,0 +1,46 @@
+---
+import copy from '../content/copy.fr.json';
+
+const { trustStrip } = copy;
+---
+
+<section class="trust-strip section--gradient" aria-label={trustStrip.label}>
+  <div class="container">
+    <div class="trust-strip__inner reveal">
+      <div class="trust-strip__social">
+        <div class="trust-strip__avatars" aria-hidden="true">
+          {
+            trustStrip.avatars.map((src, i) => (
+              <img
+                src={src}
+                alt=""
+                class="trust-strip__avatar"
+                width="44"
+                height="44"
+                loading="lazy"
+                style={`z-index: ${trustStrip.avatars.length - i}`}
+              />
+            ))
+          }
+        </div>
+        <div class="trust-strip__text">
+          <p class="trust-strip__label">{trustStrip.label}</p>
+          <p class="trust-strip__count">
+            <strong>{trustStrip.count}</strong> {trustStrip.text}
+          </p>
+        </div>
+      </div>
+
+      <ul class="trust-strip__badges" aria-label="Certifications et expertises">
+        {
+          trustStrip.badges.map((badge) => (
+            <li class="trust-strip__badge">
+              <span class="trust-strip__badge-label">{badge.label}</span>
+              <span class="trust-strip__badge-detail">{badge.detail}</span>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </div>
+</section>

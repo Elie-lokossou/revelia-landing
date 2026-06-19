@@ -1,0 +1,76 @@
+---
+import copy from '../content/copy.fr.json';
+import LogoIcon from './LogoIcon.astro';
+
+const { header } = copy;
+---
+
+<header class="header">
+  <div class="container header__inner">
+    <a href="/#accueil" class="header__logo">
+      <LogoIcon size={20} class="header__logo-icon" />
+      <span>{header.logo}</span>
+    </a>
+
+    <nav class="header__nav" aria-label="Navigation principale">
+      {
+        header.nav.map((item) => (
+          <a href={item.href}>{item.label}</a>
+        ))
+      }
+    </nav>
+
+    <div class="header__actions">
+      <a href="#contact" class="btn btn--red btn--pill header__cta">{header.cta}</a>
+      <button
+        class="header__burger"
+        type="button"
+        aria-label="Ouvrir le menu"
+        aria-expanded="false"
+        aria-controls="mobile-nav"
+        id="menu-toggle"
+      >
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<nav class="mobile-nav" id="mobile-nav" aria-label="Navigation mobile">
+  {
+    header.nav.map((item) => (
+      <a href={item.href} class="mobile-nav__link">{item.label}</a>
+    ))
+  }
+  <a href="#contact" class="btn btn--red btn--pill btn--full">{header.cta}</a>
+</nav>
+
+<script>
+  const toggle = document.getElementById('menu-toggle');
+  const mobileNav = document.getElementById('mobile-nav');
+  const links = mobileNav?.querySelectorAll('a');
+
+  function closeMenu() {
+    toggle?.setAttribute('aria-expanded', 'false');
+    mobileNav?.classList.remove('is-open');
+    document.body.style.overflow = '';
+  }
+
+  toggle?.addEventListener('click', () => {
+    const isOpen = toggle.getAttribute('aria-expanded') === 'true';
+    toggle.setAttribute('aria-expanded', String(!isOpen));
+    mobileNav?.classList.toggle('is-open', !isOpen);
+    document.body.style.overflow = isOpen ? '' : 'hidden';
+  });
+
+  links?.forEach((link) => link.addEventListener('click', closeMenu));
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && toggle?.getAttribute('aria-expanded') === 'true') {
+      closeMenu();
+      toggle.focus();
+    }
+  });
+</script>

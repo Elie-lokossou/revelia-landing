@@ -1,0 +1,53 @@
+---
+import copy from '../content/copy.fr.json';
+
+const { testimonials } = copy;
+---
+
+<section class="section testimonials-band" id="temoignages">
+  <div class="container">
+    <div class="reveal section-header section-header--center">
+      <p class="section__label">{testimonials.label}</p>
+      <h2 class="section__title">{testimonials.title}</h2>
+    </div>
+
+    <div class="carousel" id="testimonials-carousel" aria-roledescription="carousel" aria-label="Témoignages">
+      <div class="carousel__track" data-carousel-track>
+        {
+          testimonials.items.map((item, i) => (
+            <article class="testimonial-card carousel__slide" data-carousel-slide aria-hidden={i !== 0}>
+              <div class="testimonial-card__header">
+                <img src={item.photo} alt="" class="testimonial-card__photo" width="56" height="56" loading="lazy" aria-hidden="true" />
+                <div>
+                  <p class="testimonial-card__name">{item.name}</p>
+                  <p class="testimonial-card__result">{item.result}</p>
+                </div>
+              </div>
+              <p class="testimonial-card__quote-mark" aria-hidden="true">"</p>
+              <blockquote class="testimonial-card__text">{item.quote}</blockquote>
+              <p class="testimonial-card__detail">{item.detail}</p>
+            </article>
+          ))
+        }
+      </div>
+
+      <div class="carousel__controls">
+        <button type="button" class="carousel__btn carousel__btn--prev" data-carousel-prev aria-label="Témoignage précédent">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="15 18 9 12 15 6"/></svg>
+        </button>
+        <div class="testimonials-dots" data-carousel-dots></div>
+        <button type="button" class="carousel__btn carousel__btn--next" data-carousel-next aria-label="Témoignage suivant">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
+        </button>
+      </div>
+    </div>
+
+    <p class="testimonials-cta reveal">
+      <a href={testimonials.ctaHref} class="btn btn--red btn--pill">{testimonials.cta}</a>
+    </p>
+  </div>
+</section>
+
+<script>
+  import '../scripts/carousel.ts';
+</script>

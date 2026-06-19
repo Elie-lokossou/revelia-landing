@@ -1,0 +1,14 @@
+---
+import copy from '../content/copy.fr.json';
+
+const { quote } = copy;
+---
+
+<section class="block-black reveal" aria-label="Citation">
+  <div class="container">
+    <p class="section__label">Philosophie</p>
+    <blockquote class="block-black__quote">{quote.text}</blockquote>
+    <cite class="block-black__author">— {quote.author}</cite>
+    <div class="block-black__accent" aria-hidden="true"></div>
+  </div>
+</section>

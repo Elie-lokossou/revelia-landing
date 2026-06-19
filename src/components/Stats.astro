@@ -1,0 +1,24 @@
+---
+import copy from '../content/copy.fr.json';
+import Icon from './Icon.astro';
+
+const { stats } = copy;
+---
+
+<section class="stats-block reveal" aria-label="Chiffres clés">
+  <div class="stats-block__pattern" aria-hidden="true"></div>
+  <div class="container">
+    <h2 class="stats-block__title">{stats.title}</h2>
+    <div class="stats-grid reveal-stagger">
+      {
+        stats.items.map((item) => (
+          <div class="stats-item">
+            <Icon name={item.icon} size={32} class="stats-item__icon" />
+            <p class="stats-item__value">{item.value}</p>
+            <p class="stats-item__label">{item.label}</p>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>

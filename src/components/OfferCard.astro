@@ -1,0 +1,39 @@
+---
+interface Offer {
+  id: string;
+  name: string;
+  tagline: string;
+  price: string;
+  currency: string;
+  featured: boolean;
+  badge?: string;
+  features: string[];
+  cta: string;
+}
+
+interface Props {
+  offer: Offer;
+}
+
+const { offer } = Astro.props;
+---
+
+<article class:list={['offer-card', `offer-card--${offer.id}`, { 'offer-card--featured': offer.featured }]}>
+  {offer.badge && <span class="offer-card__badge">{offer.badge}</span>}
+  <h3 class="offer-card__name">{offer.name}</h3>
+  <p class="offer-card__tagline">{offer.tagline}</p>
+  <p class="offer-card__price">
+    {offer.price}
+    <span>{offer.currency}</span>
+  </p>
+  <ul class="offer-card__features">
+    {
+      offer.features.map((feature) => (
+        <li>{feature}</li>
+      ))
+    }
+  </ul>
+  <a href="#contact" class:list={['btn', 'btn--full', 'btn--pill', offer.featured ? 'btn--red' : 'btn--ghost']}>
+    {offer.cta}
+  </a>
+</article>

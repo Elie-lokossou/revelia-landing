@@ -1,0 +1,38 @@
+---
+import copy from '../content/copy.fr.json';
+
+const { leadMagnet } = copy;
+---
+
+<section class="section" id="ressources">
+  <div class="container">
+    <div class="lead-magnet-card reveal">
+      <div class="lead-magnet-grid reveal-stagger">
+        <div class="lead-magnet__visual">
+          <img
+            src="/images/lead-magnet.jpg"
+            alt={leadMagnet.imageAlt}
+            class="lead-magnet__image"
+            width="560"
+            height="420"
+            loading="lazy"
+          />
+        </div>
+
+        <div class="lead-magnet__content">
+          <p class="section__label">{leadMagnet.label}</p>
+          <h2 class="section__title">{leadMagnet.title}</h2>
+          <p class="lead-magnet__description">{leadMagnet.description}</p>
+          <ul class="mission-checklist mission-checklist--compact">
+            {
+              leadMagnet.checklist.map((item) => (
+                <li class="mission-checklist__item">{item}</li>
+              ))
+            }
+          </ul>
+          <a href="#contact" class="btn btn--red btn--pill">{leadMagnet.cta}</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

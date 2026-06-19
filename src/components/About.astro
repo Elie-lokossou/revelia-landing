@@ -1,0 +1,67 @@
+---
+import copy from '../content/copy.fr.json';
+
+const { about } = copy;
+---
+
+<section class="section section--about" id="apropos">
+  <div class="about__bg" aria-hidden="true"></div>
+  <div class="container">
+    <div class="about-grid reveal-stagger">
+      <div class="about__visual">
+        <img
+          src="/images/coach.jpg"
+          alt={about.imageAlt}
+          class="about__image"
+          width="480"
+          height="600"
+          loading="lazy"
+        />
+      </div>
+      <div class="about__content">
+        <p class="section__label">{about.label}</p>
+        <h2 class="section__title">{about.title}</h2>
+        <p class="about__role">{about.role}</p>
+        <p class="about__bio">{about.bio}</p>
+
+        <div class="about__stats">
+          {
+            about.stats.map((stat) => (
+              <div class="about__stat">
+                <span class="about__stat-value">
+                  {!isNaN(Number(stat.value)) ? (
+                    <>
+                      <span data-countup={stat.value}>{stat.value}</span>{stat.suffix}
+                    </>
+                  ) : (
+                    <>{stat.value}{stat.suffix}</>
+                  )}
+                </span>
+                <span class="about__stat-label">{stat.label}</span>
+              </div>
+            ))
+          }
+        </div>
+      </div>
+    </div>
+
+    <div class="about-milestones reveal">
+      <h3 class="about-milestones__title">Mon parcours</h3>
+      <div class="about-milestones__track">
+        {
+          about.milestones.map((m) => (
+            <article class="about-milestone">
+              <span class="about-milestone__year">{m.year}</span>
+              <h4 class="about-milestone__title">{m.title}</h4>
+              <p class="about-milestone__text">{m.description}</p>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+
+    <p class="about-cta reveal">
+      <a href={about.ctaHref} class="btn btn--red btn--pill">{about.cta}</a>
+    </p>
+  </div>
+</section>

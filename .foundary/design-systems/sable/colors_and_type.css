@@ -1,0 +1,241 @@
+/* ============================================================
+   Sable Design System — colors_and_type.css
+   Tokens + semantic classes.
+   Load Inter (900) and Space Mono (400,700) from Google Fonts
+   in your HTML <head>:
+
+   <link rel="preconnect" href="https://fonts.googleapis.com">
+   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+   ============================================================ */
+
+:root {
+  /* ---------- Color tokens ---------- */
+  --bg:            #EAEAEA;  /* signature sandy gray */
+  --bg-inverted:   #000000;
+  --surface:       #FFFFFF;  /* used only for inverted blocks / overlays */
+
+  --fg:            #111111;  /* primary text */
+  --fg-muted:      #888888;  /* captions, meta, secondary text */
+  --fg-inverted:   #FFFFFF;
+
+  --accent:        #7B61FF;  /* use sparingly */
+  --accent-ink:    #FFFFFF;  /* text on accent */
+
+  --border:        #CCCCCC;
+  --border-strong: #111111;
+
+  /* ---------- Typography ---------- */
+  --font-display:  'Inter', 'Helvetica Neue', Arial, sans-serif;
+  --font-mono:     'Space Mono', 'IBM Plex Mono', ui-monospace, Menlo, monospace;
+
+  --weight-display: 900;
+  --weight-body:    400;
+  --weight-body-bold: 700;
+
+  --tracking-display: -0.02em;
+  --tracking-mono:     0em;
+  --tracking-label:    0.08em; /* UPPERCASE labels */
+
+  --leading-display: 0.95;
+  --leading-body:    1.8;
+  --leading-tight:   1.3;
+
+  /* ---------- Type scale ---------- */
+  --fs-display-xl: clamp(64px, 12vw, 180px);
+  --fs-display-l:  clamp(48px, 8vw, 96px);
+  --fs-display-m:  clamp(32px, 5vw, 56px);
+  --fs-h1:         40px;
+  --fs-h2:         28px;
+  --fs-h3:         20px;
+  --fs-body:       15px;
+  --fs-small:      13px;
+  --fs-caption:    11px;
+
+  /* ---------- Spacing (4px base) ---------- */
+  --s-1:   4px;
+  --s-2:   8px;
+  --s-3:   12px;
+  --s-4:   16px;
+  --s-6:   24px;
+  --s-8:   32px;
+  --s-12:  48px;
+  --s-16:  64px;
+  --s-24:  96px;
+  --s-32:  128px;
+
+  /* ---------- Geometry ---------- */
+  --radius: 0;                       /* zero, always */
+  --border-w: 1px;
+
+  /* ---------- Motion ---------- */
+  --ease:     cubic-bezier(.2,.6,.2,1);
+  --dur-fast: 120ms;
+  --dur:      200ms;
+}
+
+/* ============================================================
+   Base
+   ============================================================ */
+
+html, body {
+  background-color: var(--bg);
+  color: var(--fg);
+  font-family: var(--font-mono);
+  font-size: var(--fs-body);
+  font-weight: var(--weight-body);
+  line-height: var(--leading-body);
+  letter-spacing: var(--tracking-mono);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Signature grain overlay. Include on <body> or on a top-level wrapper. */
+.grain::before,
+body.grain::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url('assets/noise.png');
+  background-size: 256px 256px;
+  opacity: 0.04;
+  pointer-events: none;
+  z-index: 9999;
+  mix-blend-mode: multiply;
+}
+
+/* ============================================================
+   Typography — semantic classes
+   ============================================================ */
+
+.t-display-xl,
+.t-display-l,
+.t-display-m,
+.t-h1,
+.t-h2,
+.t-h3 {
+  font-family: var(--font-display);
+  font-weight: var(--weight-display);
+  letter-spacing: var(--tracking-display);
+  line-height: var(--leading-display);
+  color: var(--fg);
+}
+
+.t-display-xl { font-size: var(--fs-display-xl); line-height: 0.9; }
+.t-display-l  { font-size: var(--fs-display-l);  }
+.t-display-m  { font-size: var(--fs-display-m);  }
+.t-h1         { font-size: var(--fs-h1); line-height: 1.05; }
+.t-h2         { font-size: var(--fs-h2); line-height: 1.1; }
+.t-h3         { font-size: var(--fs-h3); line-height: 1.2; }
+
+.t-body,
+.t-small,
+.t-caption,
+.t-label,
+.t-mono {
+  font-family: var(--font-mono);
+  font-weight: var(--weight-body);
+  line-height: var(--leading-body);
+}
+
+.t-body    { font-size: var(--fs-body); }
+.t-small   { font-size: var(--fs-small); color: var(--fg-muted); }
+.t-caption { font-size: var(--fs-caption); color: var(--fg-muted); line-height: 1.5; }
+
+.t-label {
+  font-size: var(--fs-caption);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-label);
+  color: var(--fg-muted);
+}
+
+.t-muted    { color: var(--fg-muted); }
+.t-accent   { color: var(--accent); }
+
+/* ============================================================
+   Primitive classes
+   ============================================================ */
+
+.border       { border: var(--border-w) solid var(--border); }
+.border-top   { border-top: var(--border-w) solid var(--border); }
+.border-bot   { border-bottom: var(--border-w) solid var(--border); }
+
+.hr {
+  height: 1px;
+  background: var(--border);
+  border: 0;
+  margin: var(--s-8) 0;
+}
+
+/* Buttons — square, monospace, uppercase */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--s-2);
+  padding: var(--s-3) var(--s-6);
+  font-family: var(--font-mono);
+  font-size: var(--fs-small);
+  font-weight: var(--weight-body-bold);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-label);
+  background: var(--bg);
+  color: var(--fg);
+  border: var(--border-w) solid var(--fg);
+  border-radius: 0;
+  cursor: pointer;
+  transition: opacity var(--dur-fast) var(--ease),
+              background-color var(--dur-fast) var(--ease),
+              color var(--dur-fast) var(--ease);
+  text-decoration: none;
+}
+.btn:hover       { background: var(--fg); color: var(--bg); }
+.btn:active      { opacity: 0.7; }
+.btn--solid      { background: var(--fg); color: var(--bg); }
+.btn--solid:hover{ background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
+.btn--ghost      { background: transparent; border-color: var(--border); color: var(--fg); }
+.btn--ghost:hover{ background: transparent; color: var(--accent); border-color: var(--accent); }
+
+/* Link — underline from mono baseline, accent on hover */
+a.link, .link {
+  color: var(--fg);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+  transition: color var(--dur-fast) var(--ease);
+}
+a.link:hover, .link:hover { color: var(--accent); }
+
+/* Image treatment — grayscale + contrast bump */
+.img-bw {
+  filter: grayscale(100%) contrast(1.1);
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* Card = just a 1px border. No radius, no shadow. */
+.card {
+  border: var(--border-w) solid var(--border);
+  background: var(--bg);
+  padding: var(--s-6);
+}
+
+/* Inverted block */
+.block-black {
+  background: #000;
+  color: #fff;
+}
+.block-black .t-h1,
+.block-black .t-h2,
+.block-black .t-h3 { color: #fff; }
+
+/* Accent mark — tiny purple dot used as a "live" indicator */
+.dot-accent {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  background: var(--accent);
+}
+
+/* Selection */
+::selection { background: var(--accent); color: var(--accent-ink); }

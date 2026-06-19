@@ -1,0 +1,97 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+
+const title = 'Mentions légales — Revelia';
+const description = 'Informations légales du site Revelia, coaching en développement personnel par Camille Renard.';
+---
+
+<BaseLayout title={title} description={description}>
+  <Header />
+  <main class="legal-page" id="main-content">
+    <div class="container legal-page__inner">
+      <a href="/" class="legal-page__back">← Retour à l'accueil</a>
+
+      <header class="legal-page__header">
+        <p class="section__label">Informations légales</p>
+        <h1 class="legal-page__title">Mentions légales</h1>
+        <p class="legal-page__updated">Dernière mise à jour : juin 2026</p>
+      </header>
+
+      <div class="legal-page__content">
+        <section>
+          <h2>1. Éditeur du site</h2>
+          <p>
+            Le site <strong>Revelia</strong> est édité par <strong>Camille Renard</strong>,
+            coach en développement personnel, exerçant sous la marque fictive Revelia.
+          </p>
+          <ul>
+            <li><strong>Statut :</strong> Entreprise individuelle (démonstration)</li>
+            <li><strong>Adresse :</strong> 12 rue de la Confiance, 75011 Paris, France</li>
+            <li><strong>E-mail :</strong> <a href="mailto:contact@revelia.fr">contact@revelia.fr</a></li>
+            <li><strong>Téléphone :</strong> +33 6 00 00 00 00</li>
+            <li><strong>SIRET :</strong> 000 000 000 00000 (fictif — site vitrine de démonstration)</li>
+          </ul>
+          <p><strong>Directrice de la publication :</strong> Camille Renard</p>
+        </section>
+
+        <section>
+          <h2>2. Hébergement</h2>
+          <p>Le site est hébergé par :</p>
+          <ul>
+            <li><strong>Vercel Inc.</strong></li>
+            <li>440 N Barranca Ave #4133, Covina, CA 91723, États-Unis</li>
+            <li>Site : <a href="https://vercel.com" rel="noopener noreferrer" target="_blank">vercel.com</a></li>
+          </ul>
+        </section>
+
+        <section>
+          <h2>3. Propriété intellectuelle</h2>
+          <p>
+            L'ensemble des contenus présents sur ce site (textes, visuels, graphismes, logo, structure)
+            est la propriété exclusive de Camille Renard / Revelia, sauf mention contraire.
+            Toute reproduction, représentation ou diffusion, totale ou partielle, sans autorisation
+            écrite préalable est interdite.
+          </p>
+          <p>
+            Les photographies proviennent de banques d'images libres de droits (Unsplash, Pexels).
+            Voir <code>public/images/CREDITS.md</code> pour les crédits détaillés.
+          </p>
+        </section>
+
+        <section>
+          <h2>4. Limitation de responsabilité</h2>
+          <p>
+            Les informations diffusées sur ce site ont un caractère informatif. Elles ne constituent
+            ni un conseil médical, ni un diagnostic, ni un traitement. L'accompagnement proposé relève
+            du coaching en développement personnel et ne se substitue pas à un suivi médical ou
+            psychologique.
+          </p>
+          <p>
+            Camille Renard s'efforce d'assurer l'exactitude des informations publiées, sans garantir
+            l'absence d'erreurs ou d'interruptions de service.
+          </p>
+        </section>
+
+        <section>
+          <h2>5. Liens hypertextes</h2>
+          <p>
+            Le site peut contenir des liens vers des sites tiers. Revelia n'exerce aucun
+            contrôle sur ces sites et décline toute responsabilité quant à leur contenu.
+          </p>
+        </section>
+
+        <section>
+          <h2>6. Contact</h2>
+          <p>
+            Pour toute question relative au site ou à son contenu, vous pouvez écrire à
+            <a href="mailto:contact@revelia.fr">contact@revelia.fr</a> ou utiliser le
+            <a href="/#contact">formulaire de contact</a>.
+          </p>
+        </section>
+      </div>
+    </div>
+  </main>
+  <Footer />
+</BaseLayout>

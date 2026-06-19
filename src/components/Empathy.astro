@@ -1,0 +1,22 @@
+---
+import copy from '../content/copy.fr.json';
+
+const { empathy } = copy;
+---
+
+<section class="section section--alt" id="reconnaissance">
+  <div class="container">
+    <div class="reveal">
+      <p class="section__label">{empathy.label}</p>
+      <h2 class="section__title">{empathy.title}</h2>
+    </div>
+    <ul class="empathy-list reveal-stagger">
+      {
+        empathy.pains.map((pain) => (
+          <li>{pain}</li>
+        ))
+      }
+    </ul>
+    <p class="empathy__closing reveal">{empathy.closing}</p>
+  </div>
+</section>

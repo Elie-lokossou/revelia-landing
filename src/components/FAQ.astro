@@ -1,0 +1,65 @@
+---
+import copy from '../content/copy.fr.json';
+
+const { faq } = copy;
+---
+
+<section class="section section--faq" id="faq">
+  <div class="container">
+    <div class="reveal section-header section-header--center">
+      <p class="section__label">{faq.label}</p>
+      <h2 class="section__title">{faq.title}</h2>
+    </div>
+
+    <div class="faq-search reveal">
+      <label for="faq-search-input" class="visually-hidden">Rechercher dans la FAQ</label>
+      <input
+        type="search"
+        id="faq-search-input"
+        class="faq-search__input"
+        placeholder={faq.searchPlaceholder}
+        autocomplete="off"
+        data-faq-search
+      />
+    </div>
+
+    <p class="faq-no-results" data-faq-no-results hidden>{faq.noResults}</p>
+
+    <div class="faq-list reveal-stagger" data-faq-list>
+      {
+        faq.items.map((item, i) => (
+          <details class="faq-item" data-faq-item data-search={item.question.toLowerCase() + ' ' + item.answer.toLowerCase()}>
+            <summary>{item.question}</summary>
+            <div class="faq-item__answer">
+              <div class="faq-item__answer-inner">
+                <p>{item.answer}</p>
+              </div>
+            </div>
+          </details>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<script>
+  const searchInput = document.querySelector('[data-faq-search]');
+  const faqItems = document.querySelectorAll('[data-faq-item]');
+  const noResults = document.querySelector('[data-faq-no-results]');
+
+  searchInput?.addEventListener('input', () => {
+    const query = (searchInput as HTMLInputElement).value.toLowerCase().trim();
+    let visible = 0;
+
+    faqItems.forEach((item) => {
+      const text = item.getAttribute('data-search') ?? '';
+      const match = !query || text.includes(query);
+      (item as HTMLElement).style.display = match ? '' : 'none';
+      if (match) visible++;
+    });
+
+    if (noResults) {
+      (noResults as HTMLElement).hidden = visible > 0;
+    }
+  });
+</script>

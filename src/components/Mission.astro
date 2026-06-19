@@ -1,0 +1,40 @@
+---
+import copy from '../content/copy.fr.json';
+
+const { mission } = copy;
+---
+
+<section class="section" id="mission">
+  <div class="container">
+    <div class="reveal section-header section-header--center">
+      <p class="section__label">{mission.label}</p>
+      <h2 class="section__title section__title--wide">{mission.title}</h2>
+    </div>
+
+    <div class="mission-grid reveal-stagger">
+      <ul class="mission-checklist">
+        {
+          mission.checklist.map((item) => (
+            <li class="mission-checklist__item">{item}</li>
+          ))
+        }
+      </ul>
+
+      <div class="mission-content">
+        <p class="mission-content__text">{mission.paragraph}</p>
+        <a href={mission.ctaHref} class="btn btn--ghost btn--pill">{mission.cta}</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section section--alt about-compact" id="apropos">
+  <div class="container">
+    <div class="about-compact__inner reveal">
+      <p class="section__label">{copy.about.label}</p>
+      <h2 class="about-compact__title">{copy.about.title}</h2>
+      <p class="about-compact__role">{copy.about.role}</p>
+      <p class="about-compact__bio">{copy.about.bio}</p>
+    </div>
+  </div>
+</section>
