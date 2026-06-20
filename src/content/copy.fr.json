@@ -421,6 +421,8 @@
       "email": "Email",
       "message": "Ton message (optionnel)",
       "submit": "Réserver mon appel gratuit",
+      "loading": "Envoi en cours…",
+      "reset": "Envoyer un autre message",
       "next": "Continuer",
       "back": "Retour",
       "footnote": "Réponse garantie sous 24h",
@@ -459,6 +461,10 @@
       "text": "Reçois des conseils bienveillants sur la confiance en soi.",
       "placeholder": "Ton email",
       "submit": "S'inscrire"
+    },
+    "cta": "Réserver un appel gratuit",
+    "legal": {
+      "title": "Légal"
     },
     "social": [
       { "label": "Instagram", "href": "#" },
