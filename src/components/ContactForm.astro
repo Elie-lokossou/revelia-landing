@@ -3,9 +3,16 @@ import copy from '../content/copy.fr.json';
 import Icon from './Icon.astro';
 
 const { contact } = copy;
-const web3Key = import.meta.env.PUBLIC_WEB3FORMS_KEY ?? '';
+const web3Key = (import.meta.env.PUBLIC_WEB3FORMS_KEY ?? '').trim();
 const isDemoMode = !web3Key || web3Key === 'demo-key-replace-me';
 const accessKey = isDemoMode ? 'demo-key-replace-me' : web3Key;
+
+const contactConfig = JSON.stringify({
+  submitLabel: contact.form.submit,
+  stepTitles: contact.steps.map((s) => s.title),
+  errorDefault: contact.form.error,
+  demoSuccess: contact.form.demoSuccess,
+});
 
 const benefitIconNames = ['star', 'shield', 'clock'];
 ---
@@ -48,11 +55,23 @@ const benefitIconNames = ['star', 'shield', 'clock'];
           <p class="contact-form__step-label" data-step-label>Étape 1/3 — {contact.steps[0].title}</p>
         </div>
 
-        <form class="contact-form" id="contact-form" novalidate>
+        <form
+          class="contact-form"
+          id="contact-form"
+          novalidate
+          data-contact-config={contactConfig}
+        >
           <input type="hidden" name="access_key" value={accessKey} />
           <input type="hidden" name="subject" value="Nouvelle demande — Revelia" />
           <input type="hidden" name="objectif" id="objectif-hidden" value="" />
-          <input type="checkbox" name="botcheck" style="display: none;" tabindex="-1" autocomplete="off" />
+          <input
+            type="checkbox"
+            name="botcheck"
+            class="visually-hidden"
+            tabindex="-1"
+            autocomplete="off"
+            aria-hidden="true"
+          />
 
           <!-- Step 1 -->
           <div class="contact-form__panel" data-form-step="1">
@@ -119,94 +138,6 @@ const benefitIconNames = ['star', 'shield', 'clock'];
   </div>
 </section>
 
-<script define:vars={{ submitLabel: contact.form.submit, isDemoMode, stepTitles: contact.steps.map(s => s.title) }}>
-  const form = document.getElementById('contact-form');
-  const submitBtn = document.getElementById('submit-btn');
-  const successEl = document.getElementById('form-success');
-  const errorEl = document.getElementById('form-error');
-  const stepFill = document.querySelector('[data-step-fill]');
-  const stepLabel = document.querySelector('[data-step-label]');
-  const objectifHidden = document.getElementById('objectif-hidden');
-  const panels = form?.querySelectorAll('[data-form-step]');
-  let currentStep = 1;
-
-  function showStep(step) {
-    currentStep = step;
-    panels?.forEach((p) => {
-      const n = Number(p.getAttribute('data-form-step'));
-      (p as HTMLElement).hidden = n !== step;
-    });
-    if (stepFill) (stepFill as HTMLElement).style.width = `${(step / 3) * 100}%`;
-    if (stepLabel) stepLabel.textContent = `Étape ${step}/3 — ${stepTitles[step - 1]}`;
-  }
-
-  form?.querySelectorAll('[data-form-next]').forEach((btn) => {
-    btn.addEventListener('click', () => {
-      if (currentStep === 1) {
-        const selected = form.querySelector('[name="objectif_choice"]:checked');
-        if (!selected) {
-          form.querySelector('[name="objectif_choice"]')?.closest('.objective-card')?.classList.add('objective-card--error');
-          return;
-        }
-        if (objectifHidden) objectifHidden.value = (selected as HTMLInputElement).value;
-      }
-      if (currentStep === 2) {
-        const name = form.querySelector('#name') as HTMLInputElement;
-        const email = form.querySelector('#email') as HTMLInputElement;
-        if (!name?.value.trim() || !email?.value.trim() || !email.checkValidity()) {
-          name?.reportValidity();
-          email?.reportValidity();
-          return;
-        }
-      }
-      if (currentStep < 3) showStep(currentStep + 1);
-    });
-  });
-
-  form?.querySelectorAll('[data-form-back]').forEach((btn) => {
-    btn.addEventListener('click', () => {
-      if (currentStep > 1) showStep(currentStep - 1);
-    });
-  });
-
-  const accessKey = form?.querySelector('[name="access_key"]')?.value;
-
-  form?.addEventListener('submit', async (e) => {
-    e.preventDefault();
-    successEl?.classList.remove('form-message--success');
-    errorEl?.classList.remove('form-message--error');
-
-    if (isDemoMode || accessKey === 'demo-key-replace-me') {
-      successEl?.classList.add('form-message--success');
-      form.reset();
-      showStep(1);
-      return;
-    }
-
-    submitBtn.disabled = true;
-    submitBtn.setAttribute('aria-busy', 'true');
-    submitBtn.textContent = 'Envoi en cours…';
-
-    try {
-      const response = await fetch('https://api.web3forms.com/submit', {
-        method: 'POST',
-        body: new FormData(form),
-      });
-      const data = await response.json();
-
-      if (data.success) {
-        successEl?.classList.add('form-message--success');
-        form.reset();
-        showStep(1);
-      } else {
-        errorEl?.classList.add('form-message--error');
-      }
-    } catch {
-      errorEl?.classList.add('form-message--error');
-    } finally {
-      submitBtn.disabled = false;
-      submitBtn.removeAttribute('aria-busy');
-      submitBtn.textContent = submitBtn.dataset.label ?? 'Envoyer ma demande';
-    }
-  });
+<script>
+  import '../scripts/contact-form.ts';
 </script>
