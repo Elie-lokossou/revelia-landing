@@ -79,9 +79,15 @@ function initContactForm(): void {
 
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
-    successEl?.classList.remove('form-message--success');
-    errorEl?.classList.remove('form-message--error');
-    if (errorEl) errorEl.textContent = config.errorDefault;
+    if (successEl) {
+      successEl.hidden = true;
+      successEl.classList.remove('form-message--success');
+    }
+    if (errorEl) {
+      errorEl.hidden = true;
+      errorEl.classList.remove('form-message--error');
+      errorEl.textContent = config.errorDefault;
+    }
 
     const accessKeyInput = form.querySelector('input[name="access_key"]');
     const accessKey =
@@ -90,6 +96,7 @@ function initContactForm(): void {
     if (isDemoKey(accessKey)) {
       if (successEl) {
         successEl.textContent = config.demoSuccess;
+        successEl.hidden = false;
         successEl.classList.add('form-message--success');
       }
       form.reset();
@@ -117,7 +124,10 @@ function initContactForm(): void {
       }
 
       if (response.ok && data.success) {
-        if (successEl) successEl.classList.add('form-message--success');
+        if (successEl) {
+          successEl.hidden = false;
+          successEl.classList.add('form-message--success');
+        }
         form.reset();
         showStep(1);
       } else {
@@ -127,6 +137,7 @@ function initContactForm(): void {
             (response.ok
               ? config.errorDefault
               : `Erreur ${response.status} — ${config.errorDefault}`);
+          errorEl.hidden = false;
           errorEl.classList.add('form-message--error');
         }
       }
@@ -134,6 +145,7 @@ function initContactForm(): void {
       if (errorEl) {
         errorEl.textContent =
           'Impossible de contacter le serveur. Vérifie ta connexion et réessaie.';
+        errorEl.hidden = false;
         errorEl.classList.add('form-message--error');
       }
     } finally {

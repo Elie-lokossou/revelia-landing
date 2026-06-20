@@ -200,4 +200,22 @@
   .flip-card__inner {
     transition: none;
   }
+
+  .mobile-nav,
+  .mobile-nav-backdrop,
+  .header__burger-line {
+    transition: none;
+    transform: none;
+    opacity: 1;
+  }
+
+  .mobile-nav:not(.is-open) {
+    opacity: 0;
+    visibility: hidden;
+  }
+
+  .mobile-nav-backdrop:not(.is-visible) {
+    opacity: 0;
+    visibility: hidden;
+  }
 }

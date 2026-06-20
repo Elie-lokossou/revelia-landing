@@ -27,50 +27,120 @@ const { header } = copy;
         type="button"
         aria-label="Ouvrir le menu"
         aria-expanded="false"
-        aria-controls="mobile-nav"
+        aria-controls="mobile-nav-panel"
         id="menu-toggle"
       >
-        <span></span>
-        <span></span>
-        <span></span>
+        <span class="header__burger-line" aria-hidden="true"></span>
+        <span class="header__burger-line" aria-hidden="true"></span>
+        <span class="header__burger-line" aria-hidden="true"></span>
       </button>
+    </div>
+  </div>
+
+  <div class="mobile-nav-backdrop" id="mobile-nav-backdrop" hidden aria-hidden="true"></div>
+
+  <div class="mobile-nav" id="mobile-nav" hidden>
+    <div class="container mobile-nav__wrap">
+      <nav
+        class="mobile-nav__panel"
+        id="mobile-nav-panel"
+        aria-label="Navigation mobile"
+      >
+        <ul class="mobile-nav__list" role="list">
+          {
+            header.nav.map((item) => (
+              <li>
+                <a href={item.href} class="mobile-nav__link">{item.label}</a>
+              </li>
+            ))
+          }
+        </ul>
+        <div class="mobile-nav__cta">
+          <a href="#contact" class="btn btn--red btn--pill mobile-nav__cta-btn">{header.cta}</a>
+        </div>
+      </nav>
     </div>
   </div>
 </header>
 
-<nav class="mobile-nav" id="mobile-nav" aria-label="Navigation mobile">
-  {
-    header.nav.map((item) => (
-      <a href={item.href} class="mobile-nav__link">{item.label}</a>
-    ))
-  }
-  <a href="#contact" class="btn btn--red btn--pill btn--full">{header.cta}</a>
-</nav>
-
 <script>
   const toggle = document.getElementById('menu-toggle');
   const mobileNav = document.getElementById('mobile-nav');
-  const links = mobileNav?.querySelectorAll('a');
+  const backdrop = document.getElementById('mobile-nav-backdrop');
+  const panel = document.getElementById('mobile-nav-panel');
+  const links = mobileNav?.querySelectorAll('.mobile-nav__link, .mobile-nav__cta-btn');
+
+  function isOpen() {
+    return toggle?.getAttribute('aria-expanded') === 'true';
+  }
+
+  function openMenu() {
+    toggle?.setAttribute('aria-expanded', 'true');
+    toggle?.setAttribute('aria-label', 'Fermer le menu');
+    mobileNav?.removeAttribute('hidden');
+    backdrop?.removeAttribute('hidden');
+    requestAnimationFrame(() => {
+      mobileNav?.classList.add('is-open');
+      backdrop?.classList.add('is-visible');
+    });
+    links?.[0]?.focus();
+  }
 
   function closeMenu() {
     toggle?.setAttribute('aria-expanded', 'false');
+    toggle?.setAttribute('aria-label', 'Ouvrir le menu');
     mobileNav?.classList.remove('is-open');
-    document.body.style.overflow = '';
+    backdrop?.classList.remove('is-visible');
+
+    const hideAfterClose = () => {
+      mobileNav?.setAttribute('hidden', '');
+      backdrop?.setAttribute('hidden', '');
+    };
+
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      hideAfterClose();
+      return;
+    }
+
+    const fallback = window.setTimeout(hideAfterClose, 320);
+    const onEnd = (e: TransitionEvent) => {
+      if (e.target !== mobileNav || e.propertyName !== 'opacity') return;
+      window.clearTimeout(fallback);
+      hideAfterClose();
+      mobileNav?.removeEventListener('transitionend', onEnd);
+    };
+    mobileNav?.addEventListener('transitionend', onEnd);
   }
 
   toggle?.addEventListener('click', () => {
-    const isOpen = toggle.getAttribute('aria-expanded') === 'true';
-    toggle.setAttribute('aria-expanded', String(!isOpen));
-    mobileNav?.classList.toggle('is-open', !isOpen);
-    document.body.style.overflow = isOpen ? '' : 'hidden';
+    isOpen() ? closeMenu() : openMenu();
   });
+
+  backdrop?.addEventListener('click', closeMenu);
 
   links?.forEach((link) => link.addEventListener('click', closeMenu));
 
   document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && toggle?.getAttribute('aria-expanded') === 'true') {
+    if (e.key === 'Escape' && isOpen()) {
       closeMenu();
-      toggle.focus();
+      toggle?.focus();
+      return;
+    }
+
+    if (e.key !== 'Tab' || !isOpen() || !panel) return;
+
+    const focusables = panel.querySelectorAll<HTMLElement>('a, button');
+    if (focusables.length === 0) return;
+
+    const first = focusables[0];
+    const last = focusables[focusables.length - 1];
+
+    if (e.shiftKey && document.activeElement === first) {
+      e.preventDefault();
+      last.focus();
+    } else if (!e.shiftKey && document.activeElement === last) {
+      e.preventDefault();
+      first.focus();
     }
   });
 </script>

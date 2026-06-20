@@ -126,10 +126,10 @@ const benefitIconNames = ['star', 'shield', 'clock'];
 
           <p class="contact-form__footnote">{contact.form.footnote}</p>
 
-          <p class="form-message form-message--success" id="form-success" role="status">
+          <p class="form-message form-message--success" id="form-success" role="status" hidden>
             {isDemoMode ? contact.form.demoSuccess : contact.form.success}
           </p>
-          <p class="form-message form-message--error" id="form-error" role="alert">
+          <p class="form-message form-message--error" id="form-error" role="alert" hidden>
             {contact.form.error}
           </p>
         </form>
