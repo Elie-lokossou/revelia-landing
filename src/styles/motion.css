@@ -33,12 +33,16 @@
 .reveal-stagger.is-visible > *:nth-child(6) { transition-delay: calc(var(--stagger-step) * 5); }
 .reveal-stagger.is-visible > *:nth-child(7) { transition-delay: calc(var(--stagger-step) * 6); }
 .reveal-stagger.is-visible > *:nth-child(8) { transition-delay: calc(var(--stagger-step) * 7); }
+.reveal-stagger.is-visible > *:nth-child(9) { transition-delay: calc(var(--stagger-step) * 8); }
+.reveal-stagger.is-visible > *:nth-child(10) { transition-delay: calc(var(--stagger-step) * 9); }
+.reveal-stagger.is-visible > *:nth-child(11) { transition-delay: calc(var(--stagger-step) * 10); }
+.reveal-stagger.is-visible > *:nth-child(12) { transition-delay: calc(var(--stagger-step) * 11); }
 
 /* ── Hero entrance ── */
 @keyframes hero-enter {
   from {
     opacity: 0;
-    transform: translateY(32px);
+    transform: translateY(var(--reveal-offset));
   }
   to {
     opacity: 1;
@@ -57,6 +61,15 @@
   }
 }
 
+@keyframes floating-card-enter {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
 .hero__item {
   opacity: 0;
   animation: hero-enter var(--dur-reveal) var(--ease-out) forwards;
@@ -71,34 +84,258 @@
 .hero__photo-wrap .hero__image {
   opacity: 0;
   animation: hero-image-enter calc(var(--dur-reveal) + 200ms) var(--ease-out) 200ms forwards;
+  will-change: transform, opacity;
+}
+
+.floating-card {
+  opacity: 0;
+  will-change: transform, opacity;
+  animation:
+    floating-card-enter var(--dur-reveal) var(--card-ease) forwards,
+    float-y var(--float-duration) var(--ease-in-out) infinite;
+}
+
+.floating-card--1 {
+  animation-delay: 600ms, 0s;
+}
+
+.floating-card--2 {
+  animation-delay: 720ms, 1.2s;
+}
+
+.floating-card--3 {
+  animation-delay: 840ms, 2.4s;
 }
 
 /* ── Floating cards oscillation ── */
 @keyframes float-y {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-8px); }
+  0%, 100% { transform: translate3d(0, 0, 0); }
+  50% { transform: translate3d(0, calc(var(--float-distance) * -1), 0); }
 }
 
-.floating-card--1 {
-  animation: float-y 4s var(--ease-in-out) infinite;
-}
-
-.floating-card--2 {
-  animation: float-y 5s var(--ease-in-out) 0.5s infinite;
-}
-
-.floating-card--3 {
-  animation: float-y 4.5s var(--ease-in-out) 1s infinite;
-}
-
-/* ── Badge pulse ── */
+/* ── Badge pulse (subtle, non-featured only) ── */
 @keyframes badge-pulse {
-  0%, 100% { box-shadow: 0 0 0 0 rgba(232, 75, 94, 0.4); }
-  50% { box-shadow: 0 0 0 8px rgba(232, 75, 94, 0); }
+  0%, 100% { box-shadow: 0 0 0 0 rgba(232, 75, 94, 0.35); }
+  50% { box-shadow: 0 0 0 6px rgba(232, 75, 94, 0); }
 }
 
-.offer-card__badge {
-  animation: badge-pulse 2.5s var(--ease-in-out) infinite;
+.offer-card--featured .offer-card__badge {
+  animation: none;
+}
+
+.offer-card--featured::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(
+    105deg,
+    transparent 38%,
+    rgba(255, 255, 255, 0.12) 50%,
+    transparent 62%
+  );
+  background-size: 220% 100%;
+  animation: offer-shimmer 5s var(--ease-in-out) infinite;
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0.55;
+}
+
+.offer-card--featured::after {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  border-radius: inherit;
+  background: radial-gradient(ellipse at 50% 0%, rgba(232, 75, 94, 0.1) 0%, transparent 70%);
+  opacity: 0.5;
+  animation: offer-glow-pulse 4s var(--ease-in-out) infinite;
+  pointer-events: none;
+  z-index: 0;
+}
+
+@keyframes offer-shimmer {
+  0%, 100% { background-position: 120% 0; }
+  50% { background-position: -20% 0; }
+}
+
+@keyframes offer-glow-pulse {
+  0%, 100% { opacity: 0.35; }
+  50% { opacity: 0.7; }
+}
+
+.offer-card:not(.offer-card--featured) .offer-card__badge {
+  animation: badge-pulse 3s var(--ease-in-out) infinite;
+}
+
+/* ── Shared card GPU & transition base ── */
+.offer-card,
+.testimonial-card,
+.pillar-card,
+.flip-card__inner,
+.quiz__answer-card,
+.about-milestone,
+.method-row,
+.lead-magnet-card {
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+
+/* ── Pillar hover halo ── */
+.pillar-card {
+  position: relative;
+  will-change: transform, box-shadow;
+}
+
+.pillar-card::after {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  opacity: 0;
+  box-shadow: var(--halo-red);
+  transition: opacity var(--dur-card) var(--card-ease);
+  pointer-events: none;
+  z-index: -1;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .pillar-card:hover::after,
+  .pillar-card:focus-within::after {
+    opacity: 1;
+  }
+}
+
+/* ── Timeline marker pulse ── */
+.timeline__dot {
+  transform: scale(0);
+  transition: transform var(--dur-slow) var(--ease-out);
+}
+
+.reveal-stagger.is-visible .timeline__dot {
+  transform: scale(1);
+}
+
+.timeline__line {
+  transform-origin: top;
+  transform: scaleY(0);
+  transition: transform calc(var(--dur-reveal) + 200ms) var(--ease-out);
+}
+
+.reveal-stagger.is-visible .timeline__line {
+  transform: scaleY(1);
+}
+
+/* ── Section gradient scroll shift ── */
+[data-section-bg] {
+  --bg-shift: 0%;
+  transition: background-position 0.6s var(--ease-out);
+}
+
+.section--quiz .quiz__bg,
+.section--situations .situations__bg,
+.section--about .about__bg,
+.section--offers .offers__bg,
+.section--contact .contact__bg {
+  background-position: 50% var(--bg-shift);
+  transition: background-position 0.55s var(--ease-out);
+}
+
+/* ── Quiz panels & transitions ── */
+.quiz__panel {
+  transition:
+    opacity var(--dur-slow) var(--ease-out),
+    transform var(--dur-slow) var(--ease-out);
+}
+
+.quiz__panel[hidden] {
+  display: none;
+}
+
+.quiz__panel--questions.is-transitioning-out {
+  opacity: 0;
+  transform: translateX(-20px);
+  transition-duration: var(--dur-card);
+}
+
+.quiz__panel--questions.is-transitioning-in {
+  opacity: 0;
+  transform: translateX(20px);
+  transition-duration: var(--dur-card);
+}
+
+.quiz__panel--questions.is-active {
+  opacity: 1;
+  transform: translateX(0);
+  transition-duration: var(--dur-card);
+}
+
+.quiz__panel--intro,
+.quiz__panel--analyzing,
+.quiz__panel--results {
+  animation: quiz-panel-in var(--dur-reveal) var(--ease-out);
+}
+
+@keyframes quiz-panel-in {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ── Quiz score ring ── */
+.quiz__score-ring-wrap {
+  display: flex;
+  justify-content: center;
+  margin-bottom: var(--s-8);
+}
+
+.quiz__score-ring {
+  position: relative;
+  width: 120px;
+  height: 120px;
+}
+
+.quiz__score-ring svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  transform: rotate(-90deg);
+}
+
+.quiz__score-ring-bg {
+  fill: none;
+  stroke: var(--color-gray-200);
+  stroke-width: 8;
+}
+
+.quiz__score-ring-fill {
+  fill: none;
+  stroke: var(--color-red);
+  stroke-width: 8;
+  stroke-linecap: round;
+  stroke-dasharray: 339.292;
+  stroke-dashoffset: 339.292;
+  transition: stroke-dashoffset 1.4s var(--ease-out);
+}
+
+.quiz__score-ring-fill.is-animated {
+  stroke-dashoffset: var(--ring-offset, 339.292);
+}
+
+.quiz__score-ring-value {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-display);
+  font-size: var(--fs-h2);
+  font-weight: var(--weight-display-bold);
+  color: var(--color-red);
 }
 
 /* ── Quiz spinner ── */
@@ -108,6 +345,64 @@
 
 .quiz__spinner {
   animation: quiz-spin 0.8s linear infinite;
+}
+
+/* ── Carousel slide fade ── */
+.carousel__slide {
+  opacity: 0.45;
+  transform: scale(0.96);
+  transition:
+    opacity calc(var(--dur-card) + 40ms) var(--card-ease),
+    transform calc(var(--dur-card) + 40ms) var(--card-ease);
+  will-change: opacity, transform;
+}
+
+.carousel__slide.is-active {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* ── Contact form step panels ── */
+.contact-form__panel {
+  transition:
+    opacity var(--dur-slow) var(--ease-out),
+    transform var(--dur-slow) var(--ease-out);
+}
+
+.contact-form__panel.is-exiting {
+  opacity: 0;
+  transform: translateX(-20px);
+  pointer-events: none;
+  position: absolute;
+  width: 100%;
+}
+
+.contact-form__panel.is-entering {
+  opacity: 0;
+  transform: translateX(20px);
+}
+
+.contact-form__panel.is-active {
+  opacity: 1;
+  transform: translateX(0);
+  position: relative;
+}
+
+.contact-form {
+  position: relative;
+  min-height: 280px;
+}
+
+/* ── Global arrow nudge on links & buttons ── */
+.btn .icon,
+.hero__link-secondary .hero__link-arrow,
+.hero__link-arrow {
+  transition: transform var(--dur) var(--ease-out);
+}
+
+.btn:hover:not(:disabled) .icon,
+.hero__link-secondary:hover .hero__link-arrow {
+  transform: translateX(3px);
 }
 
 /* ── Quote block accent draw ── */
@@ -120,8 +415,23 @@
   width: 48px;
 }
 
-/* ── FAQ answer reveal ── */
+/* ── FAQ accordion ── */
+.faq-item__answer {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows var(--dur-slow) var(--ease-out);
+}
+
 .faq-item[open] .faq-item__answer {
+  grid-template-rows: 1fr;
+}
+
+.faq-item__answer-inner {
+  overflow: hidden;
+  min-height: 0;
+}
+
+.faq-item[open] .faq-item__answer-inner {
   animation: faq-answer-in var(--dur-slow) var(--ease-out);
 }
 
@@ -133,6 +443,70 @@
   to {
     opacity: 1;
     transform: translateY(0);
+  }
+}
+
+.faq-item summary::after {
+  transition: transform var(--dur) var(--ease-out);
+}
+
+/* ── Flip card polish ── */
+.flip-card__inner {
+  transition: transform 0.5s var(--card-flip-ease);
+  will-change: transform;
+}
+
+.flip-card.is-flipped .flip-card__inner {
+  transform: rotateY(180deg);
+}
+
+.flip-card__front,
+.flip-card__back {
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .flip-card:not(.is-flipped):hover .flip-card__image {
+    transform: scale(var(--card-image-scale));
+  }
+}
+
+@media (hover: none) {
+  .flip-card:active:not(.is-flipped) .flip-card__inner {
+    transform: scale(0.98);
+  }
+
+  .flip-card.is-flipped:active .flip-card__inner {
+    transform: rotateY(180deg) scale(0.98);
+  }
+}
+
+/* ── Touch: reduce hover lifts, keep tap feedback ── */
+@media (hover: none), (pointer: coarse) {
+  .offer-card:hover,
+  .offer-card:focus-within,
+  .testimonial-card:hover,
+  .pillar-card:hover,
+  .quiz__answer-card:hover,
+  .about-milestone:hover,
+  .method-row:hover {
+    transform: none;
+    box-shadow: var(--shadow-soft);
+  }
+
+  .offer-card:active,
+  .testimonial-card:active,
+  .pillar-card:active,
+  .quiz__answer-card:active,
+  .about-milestone:active {
+    transform: scale(0.98);
+    transition-duration: var(--dur-fast);
+  }
+
+  .pillar-card:hover .pillar-card__image,
+  .flip-card:hover .flip-card__image {
+    transform: none;
   }
 }
 
@@ -164,11 +538,36 @@
   .hero__photo-wrap .hero__image,
   .floating-card,
   .offer-card__badge,
-  .quiz__spinner {
+  .quiz__spinner,
+  .quiz__panel,
+  .contact-form__panel,
+  .carousel__slide {
     opacity: 1;
     transform: none;
     animation: none;
     transition: none;
+    will-change: auto;
+  }
+
+  .offer-card:not(.offer-card--featured) .offer-card__badge,
+  .offer-card--featured::before,
+  .offer-card--featured::after {
+    animation: none;
+  }
+
+  .timeline__dot,
+  .timeline__line {
+    transform: none;
+    transition: none;
+  }
+
+  .quiz__score-ring-fill {
+    stroke-dashoffset: var(--ring-offset, 0);
+    transition: none;
+  }
+
+  .pillar-card::after {
+    display: none;
   }
 
   .block-black__accent {
@@ -176,7 +575,12 @@
     transition: none;
   }
 
-  .faq-item[open] .faq-item__answer {
+  .faq-item__answer {
+    grid-template-rows: 1fr;
+    transition: none;
+  }
+
+  .faq-item[open] .faq-item__answer-inner {
     animation: none;
   }
 
@@ -217,5 +621,14 @@
   .mobile-nav-backdrop:not(.is-visible) {
     opacity: 0;
     visibility: hidden;
+  }
+
+  [data-section-bg] .quiz__bg,
+  [data-section-bg] .situations__bg,
+  [data-section-bg] .about__bg,
+  [data-section-bg] .offers__bg,
+  [data-section-bg] .contact__bg {
+    background-position: 50% 0%;
+    transition: none;
   }
 }

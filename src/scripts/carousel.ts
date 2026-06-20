@@ -34,12 +34,15 @@ function initCarousel(): void {
 
     slides.forEach((slide, i) => {
       slide.setAttribute('aria-hidden', String(i !== current));
+      slide.classList.toggle('is-active', i === current);
     });
 
     dots?.forEach((dot, i) => {
       dot.classList.toggle('testimonials-dots__dot--active', i === current);
     });
   }
+
+  goTo(0);
 
   prevBtn?.addEventListener('click', () => {
     goTo(current - 1);

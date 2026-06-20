@@ -4,7 +4,7 @@ import copy from '../content/copy.fr.json';
 const { about } = copy;
 ---
 
-<section class="section section--about" id="apropos">
+<section class="section section--about" id="apropos" data-section-bg>
   <div class="about__bg" aria-hidden="true"></div>
   <div class="container">
     <div class="about-grid reveal-stagger">
@@ -30,9 +30,7 @@ const { about } = copy;
               <div class="about__stat">
                 <span class="about__stat-value">
                   {!isNaN(Number(stat.value)) ? (
-                    <>
-                      <span data-countup={stat.value}>{stat.value}</span>{stat.suffix}
-                    </>
+                    <span data-countup={stat.value} data-countup-suffix={stat.suffix}>{stat.value}{stat.suffix}</span>
                   ) : (
                     <>{stat.value}{stat.suffix}</>
                   )}
@@ -47,7 +45,7 @@ const { about } = copy;
 
     <div class="about-milestones reveal">
       <h3 class="about-milestones__title">Mon parcours</h3>
-      <div class="about-milestones__track">
+      <div class="about-milestones__track reveal-stagger">
         {
           about.milestones.map((m) => (
             <article class="about-milestone">

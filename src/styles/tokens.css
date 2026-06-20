@@ -50,13 +50,26 @@
   /* Motion */
   --ease: cubic-bezier(0.2, 0.6, 0.2, 1);
   --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
-  --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-in-out: cubic-bezier(0.45, 0, 0.55, 1);
+  --card-ease: cubic-bezier(0.16, 1, 0.3, 1);
+  --card-flip-ease: cubic-bezier(0.33, 1, 0.68, 1);
   --dur-fast: 120ms;
   --dur: 200ms;
-  --dur-slow: 500ms;
-  --dur-reveal: 700ms;
-  --reveal-offset: 28px;
-  --stagger-step: 90ms;
+  --dur-slow: 450ms;
+  --dur-reveal: 650ms;
+  --dur-card: 380ms;
+  --reveal-offset: 30px;
+  --stagger-step: 65ms;
+  --float-distance: 6px;
+  --float-duration: 4.5s;
+  --lift-hover: -3px;
+  --card-lift: -10px;
+  --card-lift-sm: -8px;
+  --card-image-scale: 1.04;
+  --card-shadow-hover: 0 16px 48px rgba(11, 11, 13, 0.14), 0 6px 16px rgba(11, 11, 13, 0.08);
+  --card-shadow-featured-hover: 0 20px 56px rgba(232, 75, 94, 0.24), 0 8px 20px rgba(11, 11, 13, 0.1);
+  --halo-red: 0 0 0 1px rgba(232, 75, 94, 0.18), 0 24px 64px rgba(232, 75, 94, 0.22);
+  --glow-featured: 0 0 32px rgba(232, 75, 94, 0.14);
 
   /* Ombres */
   --shadow-card: 0 4px 24px rgba(11, 11, 13, 0.08);

@@ -14,7 +14,13 @@ const { stats } = copy;
         stats.items.map((item) => (
           <div class="stats-item">
             <Icon name={item.icon} size={32} class="stats-item__icon" />
-            <p class="stats-item__value">{item.value}</p>
+            <p class="stats-item__value">
+              {!isNaN(Number(item.value.replace(/\D/g, ''))) && item.value.match(/^\d/) ? (
+                <span data-countup={item.value.replace(/\D/g, '')} data-countup-suffix={item.value.replace(/[\d]/g, '')}>{item.value}</span>
+              ) : (
+                item.value
+              )}
+            </p>
             <p class="stats-item__label">{item.label}</p>
           </div>
         ))

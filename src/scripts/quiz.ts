@@ -30,6 +30,10 @@ interface QuizConfig {
   recommendCtaHref?: string;
 }
 
+function prefersReducedMotion(): boolean {
+  return window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+}
+
 function initQuiz(): void {
   const app = document.getElementById('quiz-app');
   if (!app) return;
@@ -49,6 +53,8 @@ function initQuiz(): void {
   const profileEl = app.querySelector('[data-quiz-profile]') as HTMLElement;
   const scoresEl = app.querySelector('[data-quiz-scores]') as HTMLElement;
   const recommendContent = app.querySelector('[data-quiz-recommend-content]') as HTMLElement;
+  const scoreRingFill = app.querySelector('[data-quiz-score-ring-fill]') as SVGCircleElement | null;
+  const scoreRingValue = app.querySelector('[data-quiz-score-value]') as HTMLElement | null;
 
   let currentQ = 0;
   const profileCounts: Record<string, number> = {};
@@ -60,26 +66,56 @@ function initQuiz(): void {
     });
   }
 
-  function renderQuestion(): void {
-    const q = config.questions[currentQ];
-    if (!q) return;
+  function transitionQuestion(update: () => void): void {
+    const panel = panels.questions;
+    if (!panel || prefersReducedMotion()) {
+      update();
+      return;
+    }
 
-    const total = config.questions.length;
-    progressLabel.textContent = config.progressLabel
-      .replace('{current}', String(currentQ + 1))
-      .replace('{total}', String(total));
-    progressFill.style.width = `${((currentQ + 1) / total) * 100}%`;
-    questionEl.textContent = q.question;
+    panel.classList.remove('is-transitioning-in', 'is-active');
+    panel.classList.add('is-transitioning-out');
 
-    answersEl.innerHTML = '';
-    q.answers.forEach((answer) => {
-      const btn = document.createElement('button');
-      btn.type = 'button';
-      btn.className = 'quiz__answer-card';
-      btn.innerHTML = `<span class="quiz__answer-icon">${icon(answer.icon, 28)}</span><span class="quiz__answer-text">${answer.text}</span>`;
-      btn.addEventListener('click', () => selectAnswer(answer));
-      answersEl.appendChild(btn);
-    });
+    window.setTimeout(() => {
+      update();
+      panel.classList.remove('is-transitioning-out');
+      panel.classList.add('is-transitioning-in');
+      requestAnimationFrame(() => {
+        panel.classList.remove('is-transitioning-in');
+        panel.classList.add('is-active');
+      });
+    }, 220);
+  }
+
+  function renderQuestion(animate = false): void {
+    const render = (): void => {
+      const q = config.questions[currentQ];
+      if (!q) return;
+
+      const total = config.questions.length;
+      progressLabel.textContent = config.progressLabel
+        .replace('{current}', String(currentQ + 1))
+        .replace('{total}', String(total));
+      progressFill.style.width = `${((currentQ + 1) / total) * 100}%`;
+      questionEl.textContent = q.question;
+
+      answersEl.innerHTML = '';
+      q.answers.forEach((answer) => {
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'quiz__answer-card';
+        btn.innerHTML = `<span class="quiz__answer-icon">${icon(answer.icon, 28)}</span><span class="quiz__answer-text">${answer.text}</span>`;
+        btn.addEventListener('click', () => selectAnswer(answer));
+        answersEl.appendChild(btn);
+      });
+    };
+
+    if (animate && currentQ > 0) {
+      transitionQuestion(render);
+    } else {
+      render();
+      panels.questions?.classList.add('is-active');
+    }
   }
 
   function selectAnswer(answer: QuizAnswer): void {
@@ -90,7 +126,7 @@ function initQuiz(): void {
 
     currentQ++;
     if (currentQ < config.questions.length) {
-      renderQuestion();
+      renderQuestion(true);
     } else {
       showAnalyzing();
     }
@@ -119,6 +155,43 @@ function initQuiz(): void {
     return Math.min(95, Math.max(45, Math.round((raw / max) * 100)));
   }
 
+  function animateNumber(el: HTMLElement, from: number, to: number, duration: number): void {
+    if (prefersReducedMotion()) {
+      el.textContent = `${to}%`;
+      return;
+    }
+    const start = performance.now();
+    const step = (now: number) => {
+      const progress = Math.min((now - start) / duration, 1);
+      const eased = 1 - Math.pow(1 - progress, 3);
+      el.textContent = `${Math.round(from + (to - from) * eased)}%`;
+      if (progress < 1) requestAnimationFrame(step);
+    };
+    requestAnimationFrame(step);
+  }
+
+  function animateScoreRing(average: number): void {
+    if (!scoreRingFill || !scoreRingValue) return;
+
+    const circumference = 339.292;
+    const offset = circumference - (average / 100) * circumference;
+
+    if (prefersReducedMotion()) {
+      scoreRingFill.style.setProperty('--ring-offset', String(offset));
+      scoreRingFill.classList.add('is-animated');
+      scoreRingValue.textContent = `${average}%`;
+      return;
+    }
+
+    scoreRingFill.style.setProperty('--ring-offset', String(circumference));
+    scoreRingFill.classList.add('is-animated');
+    animateNumber(scoreRingValue, 0, average, 1400);
+
+    requestAnimationFrame(() => {
+      scoreRingFill.style.setProperty('--ring-offset', String(offset));
+    });
+  }
+
   function showResults(): void {
     const profileKey = getDominantProfile();
     const profile = config.profiles[profileKey];
@@ -129,9 +202,12 @@ function initQuiz(): void {
       <p class="quiz__profile-desc">${profile.description}</p>
     `;
 
+    const percents = config.scores.map((s) => computeScorePercent(s.key));
+    const average = Math.round(percents.reduce((a, b) => a + b, 0) / percents.length);
+
     scoresEl.innerHTML = '';
-    config.scores.forEach((s) => {
-      const pct = computeScorePercent(s.key);
+    config.scores.forEach((s, i) => {
+      const pct = percents[i] ?? 0;
       const bar = document.createElement('div');
       bar.className = 'quiz__score-item';
       bar.innerHTML = `
@@ -156,6 +232,7 @@ function initQuiz(): void {
     showPanel('results');
 
     requestAnimationFrame(() => {
+      animateScoreRing(average);
       scoresEl.querySelectorAll('.quiz__score-fill').forEach((fill) => {
         const pct = fill.getAttribute('data-fill') ?? '0';
         (fill as HTMLElement).style.width = `${pct}%`;
@@ -167,23 +244,12 @@ function initQuiz(): void {
     });
   }
 
-  function animateNumber(el: HTMLElement, from: number, to: number, duration: number): void {
-    const start = performance.now();
-    const step = (now: number) => {
-      const progress = Math.min((now - start) / duration, 1);
-      const eased = 1 - Math.pow(1 - progress, 3);
-      el.textContent = `${Math.round(from + (to - from) * eased)}%`;
-      if (progress < 1) requestAnimationFrame(step);
-    };
-    requestAnimationFrame(step);
-  }
-
   app.querySelector('[data-quiz-start]')?.addEventListener('click', () => {
     currentQ = 0;
     Object.keys(profileCounts).forEach((k) => delete profileCounts[k]);
     Object.keys(scoreTotals).forEach((k) => (scoreTotals[k] = 0));
     showPanel('questions');
-    renderQuestion();
+    renderQuestion(false);
   });
 
   app.querySelector('[data-quiz-email-form]')?.addEventListener('submit', (e) => {

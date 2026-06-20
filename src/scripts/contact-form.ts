@@ -11,6 +11,10 @@ function isDemoKey(key: string): boolean {
   return !key.trim() || key.trim() === DEMO_KEY;
 }
 
+function prefersReducedMotion(): boolean {
+  return window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+}
+
 function initContactForm(): void {
   const form = document.getElementById('contact-form');
   if (!(form instanceof HTMLFormElement)) return;
@@ -25,12 +29,13 @@ function initContactForm(): void {
   const panels = form.querySelectorAll('[data-form-step]');
   let currentStep = 1;
 
-  function showStep(step: number): void {
-    currentStep = step;
+  function activatePanel(step: number): void {
     panels.forEach((panel) => {
       if (!(panel instanceof HTMLElement)) return;
       const n = Number(panel.getAttribute('data-form-step'));
       panel.hidden = n !== step;
+      panel.classList.remove('is-exiting', 'is-entering', 'is-active');
+      if (n === step) panel.classList.add('is-active');
     });
     if (stepFill instanceof HTMLElement) {
       stepFill.style.width = `${(step / 3) * 100}%`;
@@ -39,6 +44,41 @@ function initContactForm(): void {
       stepLabel.textContent = `Étape ${step}/3 — ${config.stepTitles[step - 1] ?? ''}`;
     }
   }
+
+  function showStep(step: number, direction: 'forward' | 'back' = 'forward'): void {
+    const outgoing = form.querySelector(`[data-form-step="${currentStep}"]`) as HTMLElement | null;
+    const incoming = form.querySelector(`[data-form-step="${step}"]`) as HTMLElement | null;
+
+    if (!outgoing || !incoming || step === currentStep) return;
+
+    if (prefersReducedMotion()) {
+      currentStep = step;
+      activatePanel(step);
+      return;
+    }
+
+    outgoing.classList.remove('is-active');
+    outgoing.classList.add('is-exiting');
+    incoming.hidden = false;
+    incoming.classList.add('is-entering');
+
+    window.setTimeout(() => {
+      outgoing.hidden = true;
+      outgoing.classList.remove('is-exiting');
+      incoming.classList.remove('is-entering');
+      incoming.classList.add('is-active');
+      currentStep = step;
+
+      if (stepFill instanceof HTMLElement) {
+        stepFill.style.width = `${(step / 3) * 100}%`;
+      }
+      if (stepLabel) {
+        stepLabel.textContent = `Étape ${step}/3 — ${config.stepTitles[step - 1] ?? ''}`;
+      }
+    }, 320);
+  }
+
+  activatePanel(1);
 
   form.querySelectorAll('[data-form-next]').forEach((btn) => {
     btn.addEventListener('click', () => {
@@ -67,13 +107,13 @@ function initContactForm(): void {
           return;
         }
       }
-      if (currentStep < 3) showStep(currentStep + 1);
+      if (currentStep < 3) showStep(currentStep + 1, 'forward');
     });
   });
 
   form.querySelectorAll('[data-form-back]').forEach((btn) => {
     btn.addEventListener('click', () => {
-      if (currentStep > 1) showStep(currentStep - 1);
+      if (currentStep > 1) showStep(currentStep - 1, 'back');
     });
   });
 
@@ -100,7 +140,8 @@ function initContactForm(): void {
         successEl.classList.add('form-message--success');
       }
       form.reset();
-      showStep(1);
+      activatePanel(1);
+      currentStep = 1;
       return;
     }
 
@@ -129,7 +170,8 @@ function initContactForm(): void {
           successEl.classList.add('form-message--success');
         }
         form.reset();
-        showStep(1);
+        activatePanel(1);
+        currentStep = 1;
       } else {
         if (errorEl) {
           errorEl.textContent =

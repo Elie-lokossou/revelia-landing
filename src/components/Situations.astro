@@ -4,7 +4,7 @@ import copy from '../content/copy.fr.json';
 const { situations } = copy;
 ---
 
-<section class="section section--situations" id="reconnaissance">
+<section class="section section--situations" id="reconnaissance" data-section-bg>
   <div class="situations__bg" aria-hidden="true"></div>
   <div class="container">
     <div class="reveal section-header section-header--center">
@@ -19,7 +19,9 @@ const { situations } = copy;
           <article class="flip-card" tabindex="0" role="button" aria-label={`${item.front} — cliquer pour voir comment Revelia peut aider`}>
             <div class="flip-card__inner">
               <div class="flip-card__front">
-                <img src={item.image} alt="" class="flip-card__image" width="400" height="280" loading="lazy" aria-hidden="true" />
+                <div class="flip-card__image-wrap">
+                  <img src={item.image} alt="" class="flip-card__image" width="400" height="280" loading="lazy" aria-hidden="true" />
+                </div>
                 <div class="flip-card__front-content">
                   <h3 class="flip-card__title">{item.front}</h3>
                   <p class="flip-card__detail">{item.frontDetail}</p>

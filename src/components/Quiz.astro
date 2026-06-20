@@ -5,7 +5,7 @@ import Icon from './Icon.astro';
 const { quiz } = copy;
 ---
 
-<section class="section section--quiz" id="bilan">
+<section class="section section--quiz" id="bilan" data-section-bg>
   <div class="quiz__bg" aria-hidden="true"></div>
   <div class="container">
     <div class="reveal section-header section-header--center">
@@ -24,7 +24,7 @@ const { quiz } = copy;
       </ul>
     </div>
 
-    <div class="quiz" id="quiz-app" data-quiz-config={JSON.stringify(quiz)}>
+    <div class="quiz reveal" id="quiz-app" data-quiz-config={JSON.stringify(quiz)}>
       <!-- Intro -->
       <div class="quiz__panel quiz__panel--intro" data-quiz-panel="intro">
         <button type="button" class="btn btn--red btn--pill quiz__start" data-quiz-start>
@@ -53,6 +53,15 @@ const { quiz } = copy;
       <!-- Results -->
       <div class="quiz__panel quiz__panel--results" data-quiz-panel="results" hidden>
         <h3 class="quiz__results-title">{quiz.resultsTitle}</h3>
+        <div class="quiz__score-ring-wrap">
+          <div class="quiz__score-ring" aria-hidden="true">
+            <svg viewBox="0 0 120 120" role="presentation">
+              <circle class="quiz__score-ring-bg" cx="60" cy="60" r="54" />
+              <circle class="quiz__score-ring-fill" data-quiz-score-ring-fill cx="60" cy="60" r="54" />
+            </svg>
+            <span class="quiz__score-ring-value" data-quiz-score-value>0</span>
+          </div>
+        </div>
         <div class="quiz__profile" data-quiz-profile></div>
 
         <h4 class="quiz__scores-title">{quiz.scoresTitle}</h4>
